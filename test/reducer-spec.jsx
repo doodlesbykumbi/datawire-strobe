@@ -17,7 +17,7 @@ describe('reducer', () => {
       routes: {},
       logger: null,
       error: null,
-      stroboscope: null      
+      strobe: null      
     }));
   });
 
@@ -39,7 +39,7 @@ describe('reducer', () => {
       routes: {},
       logger: "good",
       error: null,
-      stroboscope: null
+      strobe: null
     }));
 
     expect(nextState).to.not.equal(initialState);
@@ -51,7 +51,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: null,
-      stroboscope: null
+      strobe: null
     });
 
     const action = {
@@ -66,7 +66,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
-      stroboscope: null      
+      strobe: null      
     }));
 
     expect(nextState).to.not.equal(initialState);
@@ -78,7 +78,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
-      stroboscope: null     
+      strobe: null     
     });
 
     const action = {
@@ -92,7 +92,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: null,
-      stroboscope: null
+      strobe: null
     }));
 
     expect(nextState).to.not.equal(initialState);
@@ -104,12 +104,12 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
-      stroboscope: null     
+      strobe: null     
     });
 
     const action = {
       type: 'SET_STROBE',
-      stroboscope: "strobe baby strobe"
+      strobe: "strobe baby strobe"
     };
     
     const nextState = reducer(initialState, action);
@@ -119,7 +119,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
-      stroboscope: "strobe baby strobe"
+      strobe: "strobe baby strobe"
     }));
 
     expect(nextState).to.not.equal(initialState);
@@ -131,7 +131,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
-      stroboscope: "strobe baby strobe"
+      strobe: "strobe baby strobe"
     });
 
     const action = {
@@ -145,7 +145,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
-      stroboscope: null     
+      strobe: null     
     }));
 
     expect(nextState).to.not.equal(initialState);
