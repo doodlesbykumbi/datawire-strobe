@@ -9,6 +9,7 @@ describe('User reducer', () => {
     const initialState = fromJS({
       user: null,
       logger: 'logger',
+      error: null,
       routes: {}      
     });
 
@@ -31,6 +32,7 @@ describe('User reducer', () => {
         state: 'LOGGED_IN'
       },
       logger: 'logger',
+      error: null,
       routes: {}
     }));
 
@@ -46,6 +48,7 @@ describe('User reducer', () => {
         state: 'LOGGED_IN'
       },
       logger: 'logger',
+      error: null,
       routes: {}     
     });
 
@@ -58,6 +61,7 @@ describe('User reducer', () => {
     expect(nextState).to.equal(fromJS({
       user: null,
       logger: 'logger',
+      error: null,
       routes: {}     
     }));
 

@@ -14,7 +14,24 @@ function logger(state = {}, action = {}) {
   }
 }
 
-const reducer = combineReducers({ user, routes, logger });
+// Dirt simple error "reducer" that allows setting and clearing the error.
+function error(state = {}, action = {}) {
+  switch (action.type) {
+    case 'DEFAULT':
+      return null;
+
+    case 'ERROR':
+      return action.error;
+
+    case 'OK':
+      return null;
+
+    default:
+      return state;
+  }
+}
+
+const reducer = combineReducers({ user, routes, error, logger });
 
 export default reducer;
 
