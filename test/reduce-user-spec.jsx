@@ -10,6 +10,7 @@ describe('User reducer', () => {
       user: null,
       logger: 'logger',
       error: null,
+      stroboscope: null,
       routes: {}      
     });
 
@@ -33,6 +34,7 @@ describe('User reducer', () => {
       },
       logger: 'logger',
       error: null,
+      stroboscope: null,
       routes: {}
     }));
 
@@ -49,6 +51,7 @@ describe('User reducer', () => {
       },
       logger: 'logger',
       error: null,
+      stroboscope: null,
       routes: {}     
     });
 
@@ -62,6 +65,7 @@ describe('User reducer', () => {
       user: null,
       logger: 'logger',
       error: null,
+      stroboscope: null,
       routes: {}     
     }));
 

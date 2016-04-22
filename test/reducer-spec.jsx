@@ -16,7 +16,8 @@ describe('reducer', () => {
       user: null,
       routes: {},
       logger: null,
-      error: null      
+      error: null,
+      stroboscope: null      
     }));
   });
 
@@ -37,7 +38,8 @@ describe('reducer', () => {
       user: null,
       routes: {},
       logger: "good",
-      error: null
+      error: null,
+      stroboscope: null
     }));
 
     expect(nextState).to.not.equal(initialState);
@@ -48,7 +50,8 @@ describe('reducer', () => {
       user: "user",
       routes: "routes",
       logger: "foo",
-      error: null
+      error: null,
+      stroboscope: null
     });
 
     const action = {
@@ -62,7 +65,8 @@ describe('reducer', () => {
       user: "user",
       routes: "routes",
       logger: "foo",
-      error: "Oh NO!!"
+      error: "Oh NO!!",
+      stroboscope: null      
     }));
 
     expect(nextState).to.not.equal(initialState);
@@ -73,7 +77,8 @@ describe('reducer', () => {
       user: "user",
       routes: "routes",
       logger: "foo",
-      error: "Oh NO!!"
+      error: "Oh NO!!",
+      stroboscope: null     
     });
 
     const action = {
@@ -86,8 +91,63 @@ describe('reducer', () => {
       user: "user",
       routes: "routes",
       logger: "foo",
-      error: null
+      error: null,
+      stroboscope: null
     }));
 
     expect(nextState).to.not.equal(initialState);
-  });});
+  });
+
+  it('handles SET_STROBE', () => {
+    const initialState = fromJS({
+      user: "user",
+      routes: "routes",
+      logger: "foo",
+      error: "Oh NO!!",
+      stroboscope: null     
+    });
+
+    const action = {
+      type: 'SET_STROBE',
+      stroboscope: "strobe baby strobe"
+    };
+    
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      user: "user",
+      routes: "routes",
+      logger: "foo",
+      error: "Oh NO!!",
+      stroboscope: "strobe baby strobe"
+    }));
+
+    expect(nextState).to.not.equal(initialState);
+  });
+
+  it('handles CLEAR_STROBE', () => {
+    const initialState = fromJS({
+      user: "user",
+      routes: "routes",
+      logger: "foo",
+      error: "Oh NO!!",
+      stroboscope: "strobe baby strobe"
+    });
+
+    const action = {
+      type: 'CLEAR_STROBE'
+    };
+    
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      user: "user",
+      routes: "routes",
+      logger: "foo",
+      error: "Oh NO!!",
+      stroboscope: null     
+    }));
+
+    expect(nextState).to.not.equal(initialState);
+  });
+});

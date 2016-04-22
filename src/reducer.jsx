@@ -14,6 +14,23 @@ function logger(state = {}, action = {}) {
   }
 }
 
+// Dirt simple stroboscope "reducer" that allows only setting and clearing the strobe.
+function stroboscope(state = {}, action = {}) {
+  switch (action.type) {
+    case 'DEFAULT':
+      return null;
+
+    case 'SET_STROBE':
+      return action.stroboscope;
+
+    case 'CLEAR_STROBE':
+      return null;
+
+    default:
+      return state;
+  }
+}
+
 // Dirt simple error "reducer" that allows setting and clearing the error.
 function error(state = {}, action = {}) {
   switch (action.type) {
@@ -31,7 +48,7 @@ function error(state = {}, action = {}) {
   }
 }
 
-const reducer = combineReducers({ user, routes, error, logger });
+const reducer = combineReducers({ user, routes, error, logger, stroboscope });
 
 export default reducer;
 
