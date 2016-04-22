@@ -35,7 +35,7 @@ test: .ALWAYS
 	npm test
 
 quark: node_modules .ALWAYS
-	quark install --javascript quark/strobe.q 
+	quark install --javascript quark/strobe.q quark/identity.q
 
 token:
 	@echo grabbing service token
