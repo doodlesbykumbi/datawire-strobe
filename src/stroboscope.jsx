@@ -1,8 +1,8 @@
 /******** Stroboscope utilities here ********/
 
 export default class Stroboscope {
-  constructor(state) {
-    this.state = state;
+  constructor(dispatch) {
+    this.dispatch = dispatch;
   }
 
   connected() {
@@ -11,5 +11,7 @@ export default class Stroboscope {
 
   routesUpdated(routingTable) {
     console.log("New routes", routingTable);
+
+    this.dispatch({ type: "UPDATE", routes: routingTable.routes });
   }
 }

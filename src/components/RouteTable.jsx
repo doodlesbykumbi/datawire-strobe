@@ -22,8 +22,8 @@ const RouteTableCore = React.createClass({
     var foldedList = []
 
     routes.forEach((endpoints, service) => {
-      logger.info("service " + service + " endpoints " + endpoints.size + ": " + JSON.stringify(endpoints));
-      foldedList.push({ Service: service, Count: endpoints.size });
+      logger.info("service " + service + " endpoints " + endpoints.length + ": " + JSON.stringify(endpoints));
+      foldedList.push({ Service: service, Count: endpoints.length });
     });
 
     var table = <div>Waiting for service info...</div>

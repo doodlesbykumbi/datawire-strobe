@@ -11,12 +11,7 @@ import App from './components/App';
 import { LoginOrSignup } from './components/LoginOrSignup';
 import { RouteTable } from './components/RouteTable';
 
-import Stroboscope from './stroboscope';
-
 import { quark } from 'quark';
-
-console.log("Stroboscope", Stroboscope);
-window.Stroboscope = Stroboscope;
 
 // Fire up our logger...
 var logger = new quark.concurrent.Context.runtime().logger("stobe");
@@ -30,15 +25,6 @@ store.dispatch({
   type: 'DEFAULT',
   logger: logger
 });
-
-// store.dispatch({
-//   type: 'UPDATE',
-//   routes: {
-//     'grue-locator': [ 'gl-1', 'gl-2', 'gl-3' ],
-//     'grue-adder': [ 'ga-1', 'ga-2', 'ga-3' ],
-//     'grue-remover': [ 'gr-1', 'gr-2', 'gr-3' ]
-//   }
-// });
 
 const routes = <Route component={App}>
   <Route path="/" component={LoginOrSignup} />

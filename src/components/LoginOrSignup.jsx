@@ -6,6 +6,13 @@ import { mapStrobeState } from '../utils';
 import { Error } from './Error';
 import { UserInfo } from './UserInfo';
 
+import Stroboscope from '../stroboscope';
+import { Strobe as DWCStrobe } from 'strobe';
+
+console.log("Stroboscope", Stroboscope);
+window.Stroboscope = Stroboscope;
+window.DWCStrobe = DWCStrobe;
+
 import { token } from 'token';
 
 const LoginOrSignupCore = React.createClass({
@@ -22,6 +29,12 @@ const LoginOrSignupCore = React.createClass({
         token: token
       }
     });
+
+    // While we're at it, let's get the stroboscope running.
+    var stroboscope = new Stroboscope(this.props.dispatch);
+    var strobe = DWCStrobe.Strobe.watchingHost("disco.datawire.io", token, stroboscope);
+
+    this.props.dispatch({ type: 'SET_STROBE', strobe: strobe });
 
     window.location = '#/routes';
   },
