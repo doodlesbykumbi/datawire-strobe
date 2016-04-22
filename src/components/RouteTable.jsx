@@ -11,27 +11,28 @@ import { UserInfo } from './UserInfo';
 const RouteTableCore = React.createClass({
   mixins: [ PureRenderMixin ],
 
-  getRoutes: function() {
-    return this.props.routes || {};
-  },
-
   render: function() {
-    var routes = this.getRoutes();
+    var routes = this.props.routes;
     var logger = this.props.logger;
-
-    var foldedList = []
-
-    routes.forEach((endpoints, service) => {
-      logger.info("service " + service + " endpoints " + endpoints.length + ": " + JSON.stringify(endpoints));
-      foldedList.push({ Service: service, Count: endpoints.length });
-    });
 
     var table = <div>Waiting for service info...</div>
 
-    if (foldedList.length > 0) {
-      table = <Table className="routes" data={ foldedList } />;
-    }
+    if (routes != null) {
+      table = <div>No services registered</div>;
 
+      var foldedList = []
+
+      routes.forEach((endpoints, service) => {
+        logger.info("service " + service + " endpoints " + endpoints.length + ": " + JSON.stringify(endpoints));
+        foldedList.push({ Service: service, Instances: endpoints.length });
+      });
+
+
+      if (foldedList.length > 0) {
+        table = <Table className="routes" data={ foldedList } />;
+      }
+    }
+    
     return <div>
       <Error />
       <UserInfo />
