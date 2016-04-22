@@ -1,0 +1,21 @@
+.error {
+	color: red;
+}
+
+.error-text {
+	font-weight: bold;
+}
+
+.user-info {
+	font-family: sans-serif;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid black;
+}
+
+table.routes {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 1px solid grey;
+}
