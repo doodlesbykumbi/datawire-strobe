@@ -9,9 +9,14 @@ import { UserInfo } from './UserInfo';
 import Stroboscope from '../stroboscope';
 import { Strobe as DWCStrobe } from 'strobe';
 
+import { datawire_connect } from 'Identity';
+const IdentityClient = datawire_connect.identity.Client;
+
 console.log("Stroboscope", Stroboscope);
 window.Stroboscope = Stroboscope;
 window.DWCStrobe = DWCStrobe;
+
+window.IdentityClient = IdentityClient;
 
 import { token } from 'token';
 
@@ -21,22 +26,51 @@ const LoginOrSignupCore = React.createClass({
   doLogin: function() {
     // window.location = "#";
 
-    this.props.dispatch({
-      type: "LOGIN",
-      user: {
-        email: "flynn@datawire.io",
-        name: "Flynn",
-        token: token
+    var email = this.refs.loginEmail.value;
+    var password = this.refs.loginPassword.value;
+
+    this.props.logger.info("Starting login as " + email);
+
+    var idc = new IdentityClient("https://identity.datawire.io");
+    var lr = idc.login(email, password);
+
+    lr.onFinished({
+      onFuture: (result) => {
+        if (result.getError()) {
+          this.props.dispatch({
+            type: "ERROR",
+            error: "Login failed! " + result.getError()
+          });
+        }
+        else {
+          var orgID = result.orgID;
+          var token = result.token;
+
+          console.log("LOGGED IN! orgID " + orgID);
+
+          this.props.dispatch({
+            type: "OK"
+          });
+
+          this.props.dispatch({
+            type: "LOGIN",
+            user: {
+              email: "flynn@datawire.io",
+              name: "Flynn",
+              token: token
+            }
+          });
+
+          // While we're at it, let's get the stroboscope running.
+          var stroboscope = new Stroboscope(this.props.dispatch);
+          var strobe = DWCStrobe.Strobe.watchingHost("disco.datawire.io", token, stroboscope);
+
+          this.props.dispatch({ type: 'SET_STROBE', strobe: strobe });
+
+          window.location = '#/routes';
+        }
       }
     });
-
-    // While we're at it, let's get the stroboscope running.
-    var stroboscope = new Stroboscope(this.props.dispatch);
-    var strobe = DWCStrobe.Strobe.watchingHost("disco.datawire.io", token, stroboscope);
-
-    this.props.dispatch({ type: 'SET_STROBE', strobe: strobe });
-
-    window.location = '#/routes';
   },
 
   render: function() {
@@ -72,8 +106,12 @@ const LoginOrSignupCore = React.createClass({
         <Error />
         <div className="user-info">
           <div className="user-info-missing">You are not currently logged in.
-            <button className="floatRight" onClick={ this.doLogin }>FAKE LOGIN</button>
-            to get started!
+            <br />
+            <span>Email: </span><input type="text" width="40" ref="loginEmail" />
+            <br />
+            <span>Password: </span><input type="password" width="40" ref="loginPassword" />
+            <br />
+            <button onClick={ this.doLogin }>GO</button>
           </div>
         </div>
       </div>;

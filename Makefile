@@ -37,21 +37,21 @@ test: .ALWAYS
 quark: node_modules .ALWAYS
 	quark install --javascript quark/strobe.q quark/identity.q
 
-token:
-	@echo grabbing service token
-	@eval $$(dwc service-token hello | sed -e's/ //g') ;\
-	\
-	if [ -z $$(npm root) ]; then \
-		echo 'no npm root? WTFO?' >&2 ;\
-		exit 1 ;\
-	fi ;\
-	if [ -n "$$svc_token" ]; then \
-		echo "module.exports = { token: '$$svc_token' };" > "$$(npm root)/token.js" ;\
-		exit 0 ;\
-	else \
-		echo "no 'hello' token??" >&2 ;\
-		exit 1 ;\
-	fi
+# token:
+# 	@echo grabbing service token
+# 	@eval $$(dwc service-token hello | sed -e's/ //g') ;\
+# 	\
+# 	if [ -z $$(npm root) ]; then \
+# 		echo 'no npm root? WTFO?' >&2 ;\
+# 		exit 1 ;\
+# 	fi ;\
+# 	if [ -n "$$svc_token" ]; then \
+# 		echo "module.exports = { token: '$$svc_token' };" > "$$(npm root)/token.js" ;\
+# 		exit 0 ;\
+# 	else \
+# 		echo "no 'hello' token??" >&2 ;\
+# 		exit 1 ;\
+# 	fi
 
 SOURCEFILES= \
 	src/index.jsx \
@@ -65,14 +65,15 @@ QUARKFILES= \
 	quark/strobe.qc
 
 # Need to restore token
-dist/browser.js: token $(SOURCEFILES)
+		# -r token \
+		
+dist/browser.js: $(SOURCEFILES)
 	"$$(npm bin)/babel" -s -d pure-js src
 	npm test
 	cd pure-js && "$$(npm bin)/browserify" -d -o ../dist/browser.js \
 		-x ws \
 		-r quark \
 		-r quark/quark_node_runtime \
-		-r token \
 		-r strobe \
 		index.js
 
