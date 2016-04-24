@@ -3,8 +3,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import { mapStrobeState } from '../utils';
 
-import { token } from 'token';
-
 const UserInfoCore = React.createClass({
   mixins: [ PureRenderMixin ],
 

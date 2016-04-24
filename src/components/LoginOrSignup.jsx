@@ -18,7 +18,7 @@ window.DWCStrobe = DWCStrobe;
 
 window.IdentityClient = IdentityClient;
 
-import { token } from 'token';
+// import { token } from 'token';
 
 const LoginOrSignupCore = React.createClass({
   mixins: [ PureRenderMixin ],
