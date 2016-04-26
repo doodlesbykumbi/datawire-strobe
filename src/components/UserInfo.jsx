@@ -33,6 +33,7 @@ const UserInfoCore = React.createClass({
     else {
       return <div className="user-info">
         <div className="user-info-missing">You are somehow not logged in!
+          <br/>
           <button className="floatRight" onClick={ this.doLogout }>START OVER</button>
         </div>
       </div>;
