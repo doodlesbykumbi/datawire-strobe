@@ -1,8 +1,8 @@
 package Strobe 1.0.0;
 
 // We need to use Discovery directly here...
-//use https://raw.githubusercontent.com/datawire/discovery/master/quark/discovery-1.0.0.q;
-use ../../discovery/quark/discovery-1.0.0.q;
+use https://raw.githubusercontent.com/datawire/discovery/master/quark/discovery-1.0.0.q;
+// use ../../discovery/quark/discovery-1.0.0.q;
 
 // ...and we need to worry about concurrency, too.
 import quark.concurrent;
