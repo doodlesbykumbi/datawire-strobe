@@ -13,9 +13,23 @@
 	border-bottom: 2px solid black;
 }
 
+body {
+	font-size: 14pt;
+	font-family: sans-serif;
+}
+
 table.routes {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
 	border: 1px solid grey;
+}
+
+div#version {
+	font-size: 12pt;
+	color: grey;
+	padding: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #C0C0C0;
+	border-left: 1px solid #C0C0C0;
 }
