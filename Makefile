@@ -13,12 +13,17 @@ browser: checkEnv npm quark dist/browser.js
 checkEnv:
 	@which -s quark || { \
 		echo "Could not find quark -- is the correct venv active?" >&2 ;\
+		echo "(use 'make pip' to initialize things in a new venv)" >&2 ;\
 		exit 1 ;\
 	}
 	@which -s npm || { \
 		echo "Could not find npm -- is it installed?" >&2 ;\
+		echo "(if not, check out https://docs.npmjs.com/getting-started/installing-node)" >&2 ;\
 		exit 1 ;\
 	}
+
+pip:
+	pip install datawire-quark datawire-cloudtools
 
 node_modules:
 	mkdir node_modules
@@ -36,22 +41,6 @@ test: .ALWAYS
 
 quark: node_modules .ALWAYS
 	quark install --javascript quark/strobe.q quark/identity.q
-
-# token:
-# 	@echo grabbing service token
-# 	@eval $$(dwc service-token hello | sed -e's/ //g') ;\
-# 	\
-# 	if [ -z $$(npm root) ]; then \
-# 		echo 'no npm root? WTFO?' >&2 ;\
-# 		exit 1 ;\
-# 	fi ;\
-# 	if [ -n "$$svc_token" ]; then \
-# 		echo "module.exports = { token: '$$svc_token' };" > "$$(npm root)/token.js" ;\
-# 		exit 0 ;\
-# 	else \
-# 		echo "no 'hello' token??" >&2 ;\
-# 		exit 1 ;\
-# 	fi
 
 SOURCEFILES= \
 	src/index.jsx \
