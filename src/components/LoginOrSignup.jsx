@@ -23,8 +23,8 @@ window.IdentityClient = IdentityClient;
 const LoginOrSignupCore = React.createClass({
   mixins: [ PureRenderMixin ],
 
-  doLogin: function() {
-    // window.location = "#";
+  doLogin: function(e) {
+    e.preventDefault();
 
     var email = this.refs.loginEmail.value;
     var password = this.refs.loginPassword.value;
@@ -110,14 +110,16 @@ const LoginOrSignupCore = React.createClass({
       return <div>
         <Error />
         <div className="user-info">
-          <div className="user-info-missing">You are not currently logged in.
-            <br />
-            <span>Email: </span><input type="text" width="40" ref="loginEmail" />
-            <br />
-            <span>Password: </span><input type="password" width="40" ref="loginPassword" />
-            <br />
-            <button onClick={ this.doLogin }>GO</button>
-          </div>
+          <form>
+            <div className="user-info-missing">You are not currently logged in.
+              <br />
+              <span>Email: </span><input type="text" width="40" ref="loginEmail" autoFocus="true" />
+              <br />
+              <span>Password: </span><input type="password" width="40" ref="loginPassword" />
+              <br />
+              <input type="submit" value="GO" onClick={ this.doLogin } />
+            </div>
+          </form>
         </div>
       </div>;
     }
