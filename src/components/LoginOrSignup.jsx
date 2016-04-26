@@ -43,10 +43,11 @@ const LoginOrSignupCore = React.createClass({
           });
         }
         else {
-          var orgID = result.orgID;
-          var token = result.token;
+          this.email = email;
+          this.orgID = result.orgID;
+          this.token = result.token;
 
-          console.log("LOGGED IN! orgID " + orgID);
+          console.log("LOGGED IN! orgID " + this.orgID);
 
           this.props.dispatch({
             type: "OK"
@@ -55,22 +56,26 @@ const LoginOrSignupCore = React.createClass({
           this.props.dispatch({
             type: "LOGIN",
             user: {
-              email: "flynn@datawire.io",
-              name: "Flynn",
-              token: token
+              email: this.email,
+              orgID: this.orgID,
+              token: this.token
             }
           });
 
-          // While we're at it, let's get the stroboscope running.
-          var stroboscope = new Stroboscope(this.props.dispatch);
-          var strobe = DWCStrobe.Strobe.watchingHost("disco.datawire.io", token, stroboscope);
-
-          this.props.dispatch({ type: 'SET_STROBE', strobe: strobe });
-
-          window.location = '#/routes';
+          this.startStrobe();
         }
       }
     });
+  },
+
+  startStrobe: function () {
+    // While we're at it, let's get the stroboscope running.
+    var stroboscope = new Stroboscope(this.props.dispatch);
+    var strobe = DWCStrobe.Strobe.watchingHost("disco.datawire.io", this.token, stroboscope);
+
+    this.props.dispatch({ type: 'SET_STROBE', strobe: strobe });
+
+    window.location = '#/routes';
   },
 
   render: function() {

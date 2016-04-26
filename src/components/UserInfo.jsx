@@ -14,20 +14,20 @@ const UserInfoCore = React.createClass({
   render: function() {
     var logger = this.props.logger;
 
-    var userName = undefined;
+    var orgID = undefined;
     var userEmail = undefined;
 
     if (this.props.user) {
-      userName = this.props.user.get('name');
+      orgID = this.props.user.get('orgID');
       userEmail = this.props.user.get('email');
     }
 
-    if (userName && userName.length) {
+    if ((orgID && orgID.length) &&
+        (userEmail && userEmail.length)) {
       return <div className="user-info">
-        <div className="user-info-name">
-          Logged in as <span className="user-name">{ userName }</span> <span className="user-email">&lt;{ userEmail }&gt;</span>
-          <button className="floatRight" onClick={ this.doLogout }>LOGOUT</button>
-        </div>
+        Logged in as <span className="user-email">&lt;{ userEmail }&gt;</span> in organization <span className="user-org">{ orgID }</span>
+        <br />
+        <button className="floatRight" onClick={ this.doLogout }>LOGOUT</button>
       </div>;
     }
     else {
