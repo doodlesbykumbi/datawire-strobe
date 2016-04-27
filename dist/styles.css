@@ -6,6 +6,29 @@
 	font-weight: bold;
 }
 
+.main-error {
+	border: 2px solid red;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.main-error-text {
+	color: red;
+}
+
+.main-error-stack-div {
+	margin-top: 10px;
+	font-family: monospace;
+	font-size: .7em;
+}
+
+.main-error-stack-header {
+	font-weight: bold;
+}
+
+.main-error-stack-line {
+}
+
 .user-info {
 	font-family: sans-serif;
 	padding-top: 5px;
