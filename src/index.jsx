@@ -49,8 +49,8 @@ catch (err) {
 		var k1 = "error-stack-break-" + String(i);
 		var k2 = "error-stack-" + String(i);
 
-		stackTrace.push(<br key="{ k1 }" />);
-		stackTrace.push(<span key="{ k2 }" className="main-error-stack-line">{ line }</span>);
+		stackTrace.push(<br key={ k1 } />);
+		stackTrace.push(<span key={ k2 } className="main-error-stack-line">{ line }</span>);
 		i++;
 	});
 
