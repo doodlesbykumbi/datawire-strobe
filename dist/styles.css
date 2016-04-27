@@ -13,11 +13,12 @@
 }
 
 .main-error-text {
+	font-weight: bold;
 	color: red;
+	margin-bottom: 10px;
 }
 
 .main-error-stack-div {
-	margin-top: 10px;
 	font-family: monospace;
 	font-size: .7em;
 }
