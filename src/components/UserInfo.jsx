@@ -26,15 +26,13 @@ const UserInfoCore = React.createClass({
         (userEmail && userEmail.length)) {
       return <div className="user-info">
         Logged in as <span className="user-email">&lt;{ userEmail }&gt;</span> in organization <span className="user-org">{ orgID }</span>
-        <br />
-        <button className="floatRight" onClick={ this.doLogout }>LOGOUT</button>
+        <button className="float-right" onClick={ this.doLogout }>LOGOUT</button>
       </div>;
     }
     else {
       return <div className="user-info">
         <div className="user-info-missing">You are somehow not logged in!
-          <br/>
-          <button className="floatRight" onClick={ this.doLogout }>START OVER</button>
+          <button className="float-right" onClick={ this.doLogout }>START OVER</button>
         </div>
       </div>;
     }
