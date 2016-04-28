@@ -9,6 +9,7 @@ Usage:
 import sys
 
 import logging
+import random
 
 logging.basicConfig(level=logging.INFO)
 
@@ -38,8 +39,10 @@ def main():
                       "" if (instances == 1) else "s",
                       service))
 
+        instancesPerHost = int(random.random() * 10) + 1
+
         for instance in range(instances):
-            host = "%s.liar.datawire.io" % service
+            host = "%s-%d.liar.datawire.io" % (service, instance % instancesPerHost)
             port = 1000 + instance
             url = "http://%s:%d/" % (host, port)
 
