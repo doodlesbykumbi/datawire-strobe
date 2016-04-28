@@ -78,3 +78,17 @@ span.svc-name {
 
 span.svc-count {
 }
+
+.focused-entry-div {
+	border-top: 2px solid grey;
+	margin-top: 20px;
+}
+
+span.focused-entry-header {
+	font-weight: strong;
+	color: grey;	
+}
+
+.endpoint-row {
+
+}

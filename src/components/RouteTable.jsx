@@ -3,13 +3,65 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import { mapStrobeState } from '../utils';
 
-import { Table } from 'reactable';
+import { Table, Thead, Th, Tr, Td } from 'reactable';
 
 import { Error } from './Error';
 import { UserInfo } from './UserInfo';
 
+const FocusedEntryCore = React.createClass({
+  mixins: [ PureRenderMixin ],
+
+  close: function() {
+    this.props.dispatch({ type: 'DEFOCUS' });
+  },
+
+  render: function() {
+    var routes = this.props.routes;
+    var logger = this.props.logger;
+    var focusedService = this.props.focusedService;
+
+    if (!focusedService) {
+      return <div />;
+    }
+
+    var service = focusedService.get('service');
+    var endpoints = focusedService.get('endpoints');
+    var instances = endpoints.size;
+    var plural = (instances == 1) ? "" : "s";
+
+    logger.info("focused entry: " + service + ": " + instances + " endpoint" + plural);
+
+    return <div className="focused-entry-div">
+             <div className="focused-entry-header-div">
+               <span className="focused-entry-header">{ service }</span> running { instances } instance{ plural }
+               <button className="float-right" onClick={ this.close }>close</button>
+             </div>
+             <Table className="focused-entry-table"
+                    data={ endpoints }
+                    columns={ [ 'host', 'port' ] } />
+           </div>;
+  }
+});
+
+// We don't export this.
+const FocusedEntry = mapStrobeState(FocusedEntryCore);
+
 const RouteTableCore = React.createClass({
   mixins: [ PureRenderMixin ],
+
+  focus: function(service, endpoints) {
+    var logger = this.props.logger;
+
+    logger.info("FOCUS: " + service);
+
+    this.props.dispatch({
+      type: 'FOCUS',
+      focusedService: {
+        service: service,
+        endpoints: endpoints
+      }
+    })
+  },
 
   render: function() {
     var routes = this.props.routes;
@@ -18,25 +70,47 @@ const RouteTableCore = React.createClass({
     var table = <div>Waiting for service info...</div>
 
     if (routes != null) {
-      table = <div>No services registered</div>;
-
-      var foldedList = []
+      var rows = [];
 
       routes.forEach((endpoints, service) => {
-        logger.info("service " + service + " endpoints " + endpoints.length + ": " + JSON.stringify(endpoints));
-        foldedList.push({ Service: service, Instances: endpoints.length });
+        rows.push(<Tr className="service-row"
+                      key="svc-entry-{ service }"
+                      {...this.props}
+                      serviceHandle={ service }
+                      endpoints={ endpoints }
+                      onClick={ () => { this.focus(service, endpoints); } }>
+                    <Td column="service-name">
+                      <span className="svc-name">{ service }</span>
+                    </Td>
+                    <Td column="service-count">
+                      <span className="svc-count">{ endpoints.length }</span>
+                    </Td>
+                  </Tr>);
       });
 
-
-      if (foldedList.length > 0) {
-        table = <Table className="routes" data={ foldedList } />;
+      if (rows.length < 1) {
+        table = <div>No services registered</div>;
+      }
+      else {
+        table = <Table>
+                  <Thead key="svc-list-head">
+                    <Th column="service-name">
+                      <span className="svc-name-header">Service Name</span>
+                    </Th>
+                    <Th column="service-count">
+                      <span className="svc-count-header">Instances Running</span>
+                    </Th>
+                  </Thead>
+                  { rows }
+                </Table>;
       }
     }
     
     return <div>
       <Error />
       <UserInfo />
-      { table }      
+      { table }
+      <FocusedEntry />
     </div>;
   }
 });
