@@ -86,12 +86,8 @@ const RouteTableCore = React.createClass({
                       serviceHandle={ service }
                       endpoints={ endpoints }
                       onClick={ () => { this.focus(service, endpoints); } }>
-                    <Td column="service-name">
-                      <span className="svc-name">{ service }</span>
-                    </Td>
-                    <Td column="service-count">
-                      <span className="svc-count">{ endpoints.length }</span>
-                    </Td>
+                    <Td column="service-name">{ service }</Td>
+                    <Td column="service-count">{ endpoints.length }</Td>
                   </Tr>);
       });
 
@@ -100,13 +96,9 @@ const RouteTableCore = React.createClass({
       }
       else {
         table = <Table>
-                  <Thead key="svc-list-head">
-                    <Th column="service-name">
-                      <span className="svc-name-header">Service Name</span>
-                    </Th>
-                    <Th column="service-count">
-                      <span className="svc-count-header">Instances Running</span>
-                    </Th>
+                  <Thead key="svc-list-head" className="svc-list-header">
+                    <Th column="service-name" className="svc-name-header">Service Name</Th>
+                    <Th column="service-count" className="svc-count-header">Instances Running</Th>
                   </Thead>
                   { rows }
                 </Table>;
