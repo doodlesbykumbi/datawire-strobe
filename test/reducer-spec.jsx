@@ -17,6 +17,7 @@ describe('reducer', () => {
       routes: {},
       logger: null,
       error: null,
+      focusedService: null,
       strobe: null      
     }));
   });
@@ -39,6 +40,7 @@ describe('reducer', () => {
       routes: {},
       logger: "good",
       error: null,
+      focusedService: null,
       strobe: null
     }));
 
@@ -51,6 +53,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: null,
+      focusedService: null,
       strobe: null
     });
 
@@ -66,6 +69,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
+      focusedService: null,
       strobe: null      
     }));
 
@@ -78,6 +82,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
+      focusedService: null,
       strobe: null     
     });
 
@@ -92,6 +97,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: null,
+      focusedService: null,
       strobe: null
     }));
 
@@ -104,6 +110,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
+      focusedService: null,
       strobe: null     
     });
 
@@ -119,6 +126,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
+      focusedService: null,
       strobe: "strobe baby strobe"
     }));
 
@@ -131,6 +139,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
+      focusedService: null,
       strobe: "strobe baby strobe"
     });
 
@@ -145,6 +154,7 @@ describe('reducer', () => {
       routes: "routes",
       logger: "foo",
       error: "Oh NO!!",
+      focusedService: null,
       strobe: null     
     }));
 
