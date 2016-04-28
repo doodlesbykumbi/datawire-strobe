@@ -31,14 +31,21 @@ const FocusedEntryCore = React.createClass({
 
     logger.info("focused entry: " + service + ": " + instances + " endpoint" + plural);
 
+    var rows = endpoints.map(endpoint =>
+      <Tr key={ endpoint.host + "-" + String(endpoint.port) }
+          className="focused-entry-row">
+        <Td column="Host" className="focused-entry-host">{ endpoint.host }</Td>
+        <Td column="Port" className="focused-entry-port">{ endpoint.port }</Td>
+      </Tr>);
+
     return <div className="focused-entry-div">
              <div className="focused-entry-header-div">
                <span className="focused-entry-header">{ service }</span> running { instances } instance{ plural }
                <button className="float-right" onClick={ this.close }>close</button>
              </div>
-             <Table className="focused-entry-table"
-                    data={ endpoints }
-                    columns={ [ 'host', 'port' ] } />
+             <Table className="focused-entry-table">
+               { rows }
+             </Table>
            </div>;
   }
 });
