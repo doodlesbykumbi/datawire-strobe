@@ -4,6 +4,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { mapStrobeState } from '../utils';
 
 import { Table, Thead, Th, Tr, Td } from 'reactable';
+import { CaseInsensitive as sortAlpha } from 'reactable';
+import { NumericInteger as sortInteger } from 'reactable';
 
 import { Error } from './Error';
 import { UserInfo } from './UserInfo';
@@ -43,7 +45,12 @@ const FocusedEntryCore = React.createClass({
                <span className="focused-entry-header">{ service }</span> running { instances } instance{ plural }
                <button className="float-right" onClick={ this.close }>close</button>
              </div>
-             <Table className="focused-entry-table">
+             <Table className="focused-entry-table"
+                    sortable={[
+                      { column: 'Host', sortFunction: sortAlpha },
+                      { column: 'Port', sortFunction: sortInteger }
+                    ]}
+                    defaultSort={{ column: 'Host', direction: 'asc' }}>
                { rows }
              </Table>
            </div>;
@@ -95,7 +102,12 @@ const RouteTableCore = React.createClass({
         table = <div>No services registered</div>;
       }
       else {
-        table = <Table>
+        table = <Table className="service-table"
+                       sortable={[
+                         { column: 'service-name', sortFunction: sortAlpha },
+                         { column: 'service-count', sortFunction: sortInteger }
+                       ]}
+                       defaultSort={{ column: 'service-name', direction: 'asc' }}>
                   <Thead key="svc-list-head" className="svc-list-header">
                     <Th column="service-name" className="svc-name-header">Service Name</Th>
                     <Th column="service-count" className="svc-count-header">Instances Running</Th>
