@@ -41,6 +41,7 @@ test: .ALWAYS
 
 quark: node_modules .ALWAYS
 	quark install --javascript quark/strobe.q quark/identity.q
+	quark install --python https://raw.githubusercontent.com/datawire/datawire-connect/master/quark/datawire_connect-1.1.q
 
 SOURCEFILES= \
 	src/index.jsx \
