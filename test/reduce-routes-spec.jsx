@@ -10,6 +10,7 @@ describe('Routes reducer', () => {
       user: null,
       logger: 'logger',
       error: null,
+      focusedService: null,
       strobe: null,
       routes: {}      
     });
@@ -29,6 +30,7 @@ describe('Routes reducer', () => {
       user: null,
       logger: 'logger',
       error: null,
+      focusedService: null,
       strobe: null,
       routes: {
         'grue-locator': [ 'gl-1', 'gl-2', 'gl-3 '],
@@ -46,6 +48,7 @@ describe('Routes reducer', () => {
       user: null,
       logger: 'logger',
       error: null,
+      focusedService: null,
       strobe: null,
       routes: {
         'grue-locator': [ 'gl-1', 'gl-2', 'gl-3 '],
@@ -65,6 +68,7 @@ describe('Routes reducer', () => {
       user: null,
       logger: 'logger',
       error: null,
+      focusedService: null,
       strobe: null,
       routes: {}
     }));

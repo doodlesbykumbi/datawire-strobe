@@ -2,6 +2,7 @@ import combineReducers from 'redux-immutable-combine-reducers';
 
 import user from './reduceUser';
 import routes from './reduceRoutes';
+import focusedService from './reduceFocusedService';
 
 // Dirt simple logger "reducer" that allows only saving the logger.
 function logger(state = {}, action = {}) {
@@ -48,7 +49,7 @@ function error(state = {}, action = {}) {
   }
 }
 
-const reducer = combineReducers({ user, routes, error, logger, strobe });
+const reducer = combineReducers({ user, routes, focusedService, error, logger, strobe });
 
 export default reducer;
 
