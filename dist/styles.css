@@ -57,3 +57,24 @@ div#version {
 	border-bottom: 1px solid #C0C0C0;
 	border-left: 1px solid #C0C0C0;
 }
+
+.service-row {
+	cursor: pointer;
+}
+
+span.svc-name-header {
+	font-weight: strong;
+	color: grey;
+}
+
+span.svc-count-header {
+	font-weight: strong;
+	color: grey;
+}
+
+span.svc-name {
+	font-weight: strong;
+}
+
+span.svc-count {
+}
