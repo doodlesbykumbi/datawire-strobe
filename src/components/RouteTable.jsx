@@ -46,6 +46,9 @@ const FocusedEntryCore = React.createClass({
                <button className="float-right" onClick={ this.close }>close</button>
              </div>
              <Table className="focused-entry-table"
+                    itemsPerPage={ 20 }
+                    previousPageLabel="<<"
+                    nextPageLabel=">>"
                     sortable={[
                       { column: 'Host', sortFunction: sortAlpha },
                       { column: 'Port', sortFunction: sortInteger }
@@ -103,6 +106,9 @@ const RouteTableCore = React.createClass({
       }
       else {
         table = <Table className="service-table"
+                       itemsPerPage={ 2 }
+                       previousPageLabel="<<"
+                       nextPageLabel=">>"
                        sortable={[
                          { column: 'service-name', sortFunction: sortAlpha },
                          { column: 'service-count', sortFunction: sortInteger }
