@@ -5,6 +5,7 @@ import { Router, Route, hashHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import Discoball from './Discoball';
 import reducer from './reducer';
 
 import App from './components/App';
@@ -17,15 +18,50 @@ try {
 	// Fire up our logger...
 	var logger = new quark.concurrent.Context.runtime().logger("strobe");
 
-	// ...and our Redux store.
+	// ...and our Redux store...
 	const store = createStore(reducer);
 
 	window.store = store;
 
+	// ...and our discoball.
+	var discoball = new Discoball(store.dispatch, logger);
+
 	store.dispatch({
 	  type: 'DEFAULT',
-	  logger: logger
+	  logger: logger,
+	  discoball: discoball
 	});
+
+	// Are we already signed in?
+	if (typeof(localStorage) != 'undefined') {
+		var dwcJSON = localStorage.getItem("io.datawire.strobe");
+
+		if (dwcJSON) {
+			try {
+		    var dwcLocalStorage = JSON.parse(dwcJSON);
+
+		    if (dwcLocalStorage) {
+		      var dwcUserEmail = dwcLocalStorage.email;
+		      var dwcUserOrgID = dwcLocalStorage.orgID;
+		      var dwcUserToken = dwcLocalStorage.token;
+
+		      logger.info("boo yah: [" + dwcUserOrgID + "]" + dwcUserEmail);
+
+		      discoball.loginSucceeded(dwcUserEmail, dwcUserOrgID, dwcUserToken);
+		    }
+			}
+			catch (err) {
+				if (err instanceof SyntaxError) {
+					logger.warning("bad JSON in io.datawire.strobe! " + err.message);
+					localStorage.removeItem("io.datawire.strobe");
+				}
+				else {
+					throw err;
+				}
+			}
+
+		}
+  }
 
 	const routes = <Route component={App}>
 	  <Route path="/" component={LoginOrSignup} />

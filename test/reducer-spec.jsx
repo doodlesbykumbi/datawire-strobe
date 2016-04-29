@@ -14,7 +14,7 @@ describe('reducer', () => {
     expect(nextState).to.equal(initialState);
   });
 
-  it('handles DEFAULT with initial logger', () => {
+  it('handles DEFAULT with initial logger and discoball', () => {
     testSimpleReducer(
       {  // mods to standard default state
         user: 'evil',
@@ -23,13 +23,15 @@ describe('reducer', () => {
 
       {   // action to dispatch
         type: 'DEFAULT',
-        logger: 'good'
+        logger: 'good',
+        discoball: 'disco baby!'
       },
 
       {   // expected changes to initial state
         user: null,
         routes: {},
-        logger: 'good'
+        logger: 'good',
+        discoball: 'disco baby!'
       }
     );
   });
