@@ -6,7 +6,8 @@ function mapStateToProps(state) {
     routes: state.get('routes'),
     logger: state.get('logger'),
     error: state.get('error'),
-    focusedService: state.get('focusedService')
+    focusedService: state.get('focusedService'),
+    discoball: state.get('discoball')
   }
 }
 

@@ -5,6 +5,7 @@ import { Router, Route, hashHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import Discoball from './Discoball';
 import reducer from './reducer';
 
 import App from './components/App';
@@ -17,14 +18,18 @@ try {
 	// Fire up our logger...
 	var logger = new quark.concurrent.Context.runtime().logger("strobe");
 
-	// ...and our Redux store.
+	// ...and our Redux store...
 	const store = createStore(reducer);
 
 	window.store = store;
 
+	// ...and our discoball.
+	var discoball = new Discoball(store.dispatch, logger);
+
 	store.dispatch({
 	  type: 'DEFAULT',
-	  logger: logger
+	  logger: logger,
+	  discoball: discoball
 	});
 
 	const routes = <Route component={App}>

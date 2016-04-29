@@ -6,20 +6,6 @@ import { mapStrobeState } from '../utils';
 import { Error } from './Error';
 import { UserInfo } from './UserInfo';
 
-import Stroboscope from '../stroboscope';
-import { Strobe as DWCStrobe } from 'strobe';
-
-import { datawire_connect } from 'Identity';
-const IdentityClient = datawire_connect.identity.Client;
-
-console.log("Stroboscope", Stroboscope);
-window.Stroboscope = Stroboscope;
-window.DWCStrobe = DWCStrobe;
-
-window.IdentityClient = IdentityClient;
-
-// import { token } from 'token';
-
 const LoginOrSignupCore = React.createClass({
   mixins: [ PureRenderMixin ],
 
@@ -28,54 +14,9 @@ const LoginOrSignupCore = React.createClass({
 
     var email = this.refs.loginEmail.value;
     var password = this.refs.loginPassword.value;
+    var discoball = this.props.discoball;
 
-    this.props.logger.info("Starting login as " + email);
-
-    var idc = new IdentityClient("https://identity.datawire.io");
-    var lr = idc.login(email, password);
-
-    lr.onFinished({
-      onFuture: (result) => {
-        if (result.getError()) {
-          this.props.dispatch({
-            type: "ERROR",
-            error: "Login failed! " + result.getError()
-          });
-        }
-        else {
-          this.email = email;
-          this.orgID = result.orgID;
-          this.token = result.token;
-
-          console.log("LOGGED IN! orgID " + this.orgID);
-
-          this.props.dispatch({
-            type: "OK"
-          });
-
-          this.props.dispatch({
-            type: "LOGIN",
-            user: {
-              email: this.email,
-              orgID: this.orgID,
-              token: this.token
-            }
-          });
-
-          this.startStrobe();
-        }
-      }
-    });
-  },
-
-  startStrobe: function () {
-    // While we're at it, let's get the stroboscope running.
-    var stroboscope = new Stroboscope(this.props.dispatch);
-    var strobe = DWCStrobe.Strobe.watchingHost("disco.datawire.io", this.token, stroboscope);
-
-    this.props.dispatch({ type: 'SET_STROBE', strobe: strobe });
-
-    window.location = '#/routes';
+    discoball.login(email, password);
   },
 
   render: function() {
