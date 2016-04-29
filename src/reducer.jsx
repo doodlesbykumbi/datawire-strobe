@@ -15,6 +15,17 @@ function logger(state = {}, action = {}) {
   }
 }
 
+// Dirt simple discoball "reducer" that allows only saving the discoball.
+function discoball(state = {}, action = {}) {
+  switch (action.type) {
+    case 'DEFAULT':
+      return action.discoball ? action.discoball : null;
+
+    default:
+      return state;
+  }
+}
+
 // Dirt simple strobe "reducer" that allows only setting and clearing the strobe.
 function strobe(state = {}, action = {}) {
   switch (action.type) {
@@ -49,7 +60,8 @@ function error(state = {}, action = {}) {
   }
 }
 
-const reducer = combineReducers({ user, routes, focusedService, error, logger, strobe });
+const reducer = combineReducers({ user, routes, focusedService, discoball, 
+                                  error, logger, strobe });
 
 export default reducer;
 
