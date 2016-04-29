@@ -32,6 +32,37 @@ try {
 	  discoball: discoball
 	});
 
+	// Are we already signed in?
+	if (typeof(localStorage) != 'undefined') {
+		var dwcJSON = localStorage.getItem("io.datawire.strobe");
+
+		if (dwcJSON) {
+			try {
+		    var dwcLocalStorage = JSON.parse(dwcJSON);
+
+		    if (dwcLocalStorage) {
+		      var dwcUserEmail = dwcLocalStorage.email;
+		      var dwcUserOrgID = dwcLocalStorage.orgID;
+		      var dwcUserToken = dwcLocalStorage.token;
+
+		      logger.info("boo yah: [" + dwcUserOrgID + "]" + dwcUserEmail);
+
+		      discoball.loginSucceeded(dwcUserEmail, dwcUserOrgID, dwcUserToken);
+		    }
+			}
+			catch (err) {
+				if (err instanceof SyntaxError) {
+					logger.warning("bad JSON in io.datawire.strobe! " + err.message);
+					localStorage.removeItem("io.datawire.strobe");
+				}
+				else {
+					throw err;
+				}
+			}
+
+		}
+  }
+
 	const routes = <Route component={App}>
 	  <Route path="/" component={LoginOrSignup} />
 	  <Route path="/routes" component={RouteTable} />

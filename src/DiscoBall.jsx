@@ -52,9 +52,18 @@ export default class Discoball {
     this.orgID = orgID;
     this.token = token;
 
-    console.log("LOGGED IN! orgID " + this.orgID);
+    console.log("loginSucceeded: this " + this);
+    console.log("LOGGED IN! orgID " + this.orgID + " -- localStorage " + typeof(localStorage));
 
-    // Save to localStorage here
+    if (typeof(localStorage) != 'undefined') {
+      this.logger.info("Updating local storage with login info");
+
+      localStorage.setItem("io.datawire.strobe", JSON.stringify({
+        email: this.email,
+        orgID: this.orgID,
+        token: this.token
+      }));
+    }
 
     this.dispatch({
       type: "OK"

@@ -7,6 +7,15 @@ const UserInfoCore = React.createClass({
   mixins: [ PureRenderMixin ],
 
   doLogout: function() {
+    var logger = this.props.logger;
+
+    // Smite local storage.
+    if (typeof(localStorage) != 'undefined') {
+      logger.info("Smiting local storage login info");
+
+      localStorage.removeItem("io.datawire.strobe");
+    }
+
     this.props.dispatch({ type: 'LOGOUT' });
     window.location = "#";
   },
