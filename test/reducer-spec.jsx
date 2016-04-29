@@ -6,158 +6,109 @@ import reducer from '../src/reducer';
 describe('reducer', () => {
 
   it('handles DEFAULT with no data', () => {
-    const action = {
+    const initialState = testInitialState();
+    const nextState = reducer(undefined, {
       type: 'DEFAULT'
-    };
+    });
 
-    const nextState = reducer(undefined, action);
-
-    expect(nextState).to.equal(fromJS({
-      user: null,
-      routes: {},
-      logger: null,
-      error: null,
-      focusedService: null,
-      strobe: null      
-    }));
+    expect(nextState).to.equal(initialState);
   });
 
   it('handles DEFAULT with initial logger', () => {
-    const initialState = fromJS({
-      user: "evil",
-      routes: "evil"
-    });
+    testSimpleReducer(
+      {  // mods to standard default state
+        user: 'evil',
+        routes: 'evil'
+      },
 
-    const action = {
-      type: 'DEFAULT',
-      logger: "good"     
-    };
-    
-    const nextState = reducer(initialState, action);
+      {   // action to dispatch
+        type: 'DEFAULT',
+        logger: 'good'
+      },
 
-    expect(nextState).to.equal(fromJS({
-      user: null,
-      routes: {},
-      logger: "good",
-      error: null,
-      focusedService: null,
-      strobe: null
-    }));
-
-    expect(nextState).to.not.equal(initialState);
+      {   // expected changes to initial state
+        user: null,
+        routes: {},
+        logger: 'good'
+      }
+    );
   });
 
   it('handles ERROR', () => {
-    const initialState = fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: null,
-      focusedService: null,
-      strobe: null
-    });
+    testSimpleReducer(
+      {  // mods to standard default state
+        user: "user",
+        routes: "routes",
+        logger: "foo",
+      },
 
-    const action = {
-      type: 'ERROR',
-      error: "Oh NO!!"     
-    };
-    
-    const nextState = reducer(initialState, action);
+      {   // action to dispatch
+        type: 'ERROR',
+        error: "Oh NO!!"     
+      },
 
-    expect(nextState).to.equal(fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: "Oh NO!!",
-      focusedService: null,
-      strobe: null      
-    }));
-
-    expect(nextState).to.not.equal(initialState);
+      {   // expected changes to initial state
+        error: "Oh NO!!"     
+      }
+    );
   });
 
   it('handles OK', () => {
-    const initialState = fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: "Oh NO!!",
-      focusedService: null,
-      strobe: null     
-    });
+    testSimpleReducer(
+      {  // mods to standard default state
+        user: "user",
+        routes: "routes",
+        logger: "foo",
+        error: "Oh NO!!",
+      },
 
-    const action = {
-      type: 'OK'
-    };
-    
-    const nextState = reducer(initialState, action);
+      {   // action to dispatch
+        type: 'OK'
+      },
 
-    expect(nextState).to.equal(fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: null,
-      focusedService: null,
-      strobe: null
-    }));
-
-    expect(nextState).to.not.equal(initialState);
+      {   // expected changes to initial state
+        error: null,
+      }
+    );
   });
 
   it('handles SET_STROBE', () => {
-    const initialState = fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: "Oh NO!!",
-      focusedService: null,
-      strobe: null     
-    });
+    testSimpleReducer(
+      {  // mods to standard default state
+        user: "user",
+        routes: "routes",
+        logger: "foo",
+        error: "Oh NO!!",
+      },
 
-    const action = {
-      type: 'SET_STROBE',
-      strobe: "strobe baby strobe"
-    };
-    
-    const nextState = reducer(initialState, action);
+      {   // action to dispatch
+        type: 'SET_STROBE',
+        strobe: "strobe baby strobe"
+      },
 
-    expect(nextState).to.equal(fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: "Oh NO!!",
-      focusedService: null,
-      strobe: "strobe baby strobe"
-    }));
-
-    expect(nextState).to.not.equal(initialState);
+      {   // expected changes to initial state
+        strobe: "strobe baby strobe"
+      }
+    );
   });
 
   it('handles CLEAR_STROBE', () => {
-    const initialState = fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: "Oh NO!!",
-      focusedService: null,
-      strobe: "strobe baby strobe"
-    });
+    testSimpleReducer(
+      {  // mods to standard default state
+        user: "user",
+        routes: "routes",
+        logger: "foo",
+        error: "Oh NO!!",
+        strobe: "strobe baby strobe"
+      },
 
-    const action = {
-      type: 'CLEAR_STROBE'
-    };
-    
-    const nextState = reducer(initialState, action);
+      {   // action to dispatch
+        type: 'CLEAR_STROBE'
+      },
 
-    expect(nextState).to.equal(fromJS({
-      user: "user",
-      routes: "routes",
-      logger: "foo",
-      error: "Oh NO!!",
-      focusedService: null,
-      strobe: null     
-    }));
-
-    expect(nextState).to.not.equal(initialState);
+      {   // expected changes to initial state
+        strobe: null
+      }
+    );
   });
 });

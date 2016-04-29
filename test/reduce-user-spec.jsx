@@ -6,73 +6,50 @@ import reducer from '../src/reducer';
 describe('User reducer', () => {
 
   it('handles LOGIN', () => {
-    const initialState = fromJS({
-      user: null,
-      logger: 'logger',
-      error: null,
-      focusedService: null,
-      strobe: null,
-      routes: {}      
-    });
-
-    const action = {
-      type: 'LOGIN',
-      user: {
-        email: 'flynn@datawire.io',
-        name: 'Flynn',
-        token: 'boo yah'
-      }
-    };
-
-    const nextState = reducer(initialState, action);
-
-    expect(nextState).to.equal(fromJS({
-      user: {
-        email: 'flynn@datawire.io',
-        name: 'Flynn',
-        token: 'boo yah',
-        state: 'LOGGED_IN'
+    testSimpleReducer(
+      {
+        logger: 'logger',
       },
-      logger: 'logger',
-      error: null,
-      focusedService: null,
-      strobe: null,
-      routes: {}
-    }));
 
-    expect(nextState).to.not.equal(initialState);
+      {
+        type: 'LOGIN',
+        user: {
+          email: 'flynn@datawire.io',
+          name: 'Flynn',
+          token: 'boo yah'
+        }
+      },
+
+      {
+        user: {
+          email: 'flynn@datawire.io',
+          name: 'Flynn',
+          token: 'boo yah',
+          state: 'LOGGED_IN'
+        },
+      }
+    );
   });
 
   it('handles LOGOUT', () => {
-    const initialState = fromJS({
-      user: {
-        email: 'flynn@datawire.io',
-        name: 'Flynn',
-        token: 'boo yah',
-        state: 'LOGGED_IN'
+    testSimpleReducer(
+      {
+        user: {
+          email: 'flynn@datawire.io',
+          name: 'Flynn',
+          token: 'boo yah',
+          state: 'LOGGED_IN'
+        },
+        logger: 'logger',
       },
-      logger: 'logger',
-      error: null,
-      focusedService: null,
-      strobe: null,
-      routes: {}     
-    });
 
-    const action = {
-      type: 'LOGOUT'
-    };
+      {
+        type: 'LOGOUT',
+      },
 
-    const nextState = reducer(initialState, action);
-
-    expect(nextState).to.equal(fromJS({
-      user: null,
-      logger: 'logger',
-      error: null,
-      focusedService: null,
-      strobe: null,
-      routes: {}     
-    }));
-
-    expect(nextState).to.not.equal(initialState);
+      {
+        user: null
+      }
+    );
   });
 });
