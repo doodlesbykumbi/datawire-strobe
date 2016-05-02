@@ -8,7 +8,7 @@ publish:
 		git subtree push --prefix dist origin gh-pages ;\
 	fi
 
-browser: checkEnv npm quark dist/browser.js
+browser: checkEnv npm test dist/browser.js
 
 checkEnv:
 	@which -s quark || { \
@@ -24,12 +24,10 @@ checkEnv:
 
 pip:
 	pip install datawire-quark datawire-cloudtools
+	quark install --python https://raw.githubusercontent.com/datawire/datawire-connect/master/quark/datawire_connect-1.1.q
 
 node_modules:
 	mkdir node_modules
-
-pure-js: 
-	mkdir pure-js
 
 npm: node_modules
 	npm install
@@ -39,33 +37,37 @@ npm: node_modules
 test: .ALWAYS
 	npm test
 
-quark: node_modules .ALWAYS
-	quark install --javascript quark/strobe.q quark/identity.q
-	quark install --python https://raw.githubusercontent.com/datawire/datawire-connect/master/quark/datawire_connect-1.1.q
-
-SOURCEFILES= \
-	src/index.jsx \
-	src/reducer.jsx \
-	src/stroboscope.jsx \
-	src/components/App.jsx
-	# src/components/Login.jsx \
-	# src/components/MainDashboard.jsx
-
 QUARKFILES= \
+	quark/identity.qc \
 	quark/strobe.qc
 
-# Need to restore token
-		# -r token \
+%.qc : %.q
+	quark install --javascript $<
+
+SOURCEFILES= \
+	src/components/App.jsx \
+	src/components/Error.jsx \
+	src/components/LoginOrSignup.jsx \
+	src/components/RouteTable.jsx \
+	src/components/UserInfo.jsx \
+	src/Discoball.jsx \
+	src/index.jsx \
+	src/reduceFocusedService.jsx \
+	src/reducer.jsx \
+	src/reduceRoutes.jsx \
+	src/reduceUser.jsx \
+	src/stroboscope.jsx \
+	src/utils.jsx 
 		
-dist/browser.js: $(SOURCEFILES)
-	"$$(npm bin)/babel" -s -d pure-js src
-	npm test
-	cd pure-js && "$$(npm bin)/browserify" -d -o ../dist/browser.js \
+dist/browser.js: $(SOURCEFILES) $(QUARKFILES)
+	cd src && "$$(npm bin)/browserify" \
+		-t [ babelify --presets [ es2015 ] ] --extension=.jsx \
+		-d -o ../dist/browser.js \
 		-x ws \
 		-r quark \
 		-r quark/quark_node_runtime \
 		-r strobe \
-		index.js
+		index.jsx
 
 bmin.js: browser.js
 	"$$(npm bin)/uglifyjs" \
