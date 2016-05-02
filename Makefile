@@ -60,14 +60,10 @@ SOURCEFILES= \
 	src/utils.jsx 
 		
 dist/browser.js: $(SOURCEFILES) $(QUARKFILES)
-	cd src && "$$(npm bin)/browserify" \
-		-t [ babelify --presets [ es2015 ] ] --extension=.jsx \
-		-d -o ../dist/browser.js \
-		-x ws \
-		-r quark \
-		-r quark/quark_node_runtime \
-		-r strobe \
-		index.jsx
+	npm run build
+
+watch:
+	npm run watch
 
 bmin.js: browser.js
 	"$$(npm bin)/uglifyjs" \

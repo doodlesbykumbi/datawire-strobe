@@ -10,7 +10,9 @@
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.jsx \"test/**/*@(.js|.jsx)\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "build": "node scripts/bundlify.js",
+    "watch": "node scripts/bundlify.js --watch"
   },
   "babel": {
     "presets": [
@@ -33,7 +35,8 @@
     "mocha": "^2.4.5",
     "react-hot-loader": "^1.3.0",
     "redux-devtools": "^3.2.0",
-    "uglifyjs": "^2.4.10"
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0"
   },
   "dependencies": {
     "immutable": "^3.7.6",
