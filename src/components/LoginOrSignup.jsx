@@ -49,18 +49,41 @@ const LoginOrSignupCore = React.createClass({
       logger.info("LoginOrSignup: not logged in, offering signup button");
 
       return <div>
-        <Error />
-        <div className="user-info">
-          <form>
-            <div className="user-info-missing">You are not currently logged in.
-              <br />
-              <span>Email: </span><input type="text" width="40" ref="loginEmail" autoFocus="true" />
-              <br />
-              <span>Password: </span><input type="password" width="40" ref="loginPassword" />
-              <br />
-              <input type="submit" value="GO" onClick={ this.doLogin } />
+        <div className="ui center aligned middle aligned grid">
+          <div className="column">
+            <div className="ui very padded container">
+              <img className="logo" src="https://15113-presscdn-0-99-pagely.netdna-ssl.com/wp-content/uploads/2015/12/datawire-logo-small.png" className="image" />
             </div>
-          </form>
+            <div className="ui very padded raised segment">
+              <form className="ui large form">
+                <div>
+                  <h2 className="ui center aligned header">Login to your account</h2>
+                  <div className="field">
+                    <div className="ui input">
+                      <input type="text" name="email" ref="loginEmail" placeholder="E-mail address"/>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="ui input">
+                      <input type="password" name="password" ref="loginPassword" placeholder="Password"/>
+                    </div>
+                  </div>
+                  <div className="field text-right">
+                    <a href="">Forgot Password?</a>
+                  </div>
+                  <div className="ui fluid large color submit button" onClick={ this.doLogin }>Login</div>
+                </div>
+
+                <div className="ui error message"></div>
+                <Error />
+
+              </form>
+              <div className="ui clearing divider"></div>
+              <div className="ui center aligned text">
+                <a href="">Not a member? Create your free account</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>;
     }
