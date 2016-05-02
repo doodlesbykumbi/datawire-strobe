@@ -45,7 +45,7 @@ try {
 		      var dwcUserOrgID = dwcLocalStorage.orgID;
 		      var dwcUserToken = dwcLocalStorage.token;
 
-		      logger.info("boo yah: [" + dwcUserOrgID + "]" + dwcUserEmail);
+		      logger.info("found credentials: [" + dwcUserOrgID + "]" + dwcUserEmail);
 
 		      discoball.loginSucceeded(dwcUserEmail, dwcUserOrgID, dwcUserToken);
 		    }
