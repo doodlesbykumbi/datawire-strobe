@@ -83,6 +83,5 @@ clean:
 
 clobber: clean
 	-find . -name '*.qc' -print0 | xargs -0 rm
-	-rm -rf pure-js
 	-rm -rf node_modules
 
