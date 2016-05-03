@@ -51,6 +51,7 @@ SOURCEFILES= \
 	src/components/RouteTable.jsx \
 	src/components/UserInfo.jsx \
 	src/Discoball.jsx \
+	src/Version.jsx \
 	src/index.jsx \
 	src/reduceFocusedService.jsx \
 	src/reducer.jsx \
