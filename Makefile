@@ -4,7 +4,15 @@ publish:
 	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
 		echo "You cannot publish with a dirty tree." ;\
 	else \
-		echo "Publishing to gh-pages..." ;\
+		echo "Publishing to gh-pages (dev)..." ;\
+		git subtree push --prefix dist strobe-dev gh-pages ;\
+	fi
+
+publish-production:
+	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
+		echo "You cannot publish with a dirty tree." ;\
+	else \
+		echo "Publishing to gh-pages (production)..." ;\
 		git subtree push --prefix dist origin gh-pages ;\
 	fi
 
