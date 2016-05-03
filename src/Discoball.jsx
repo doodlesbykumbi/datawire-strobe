@@ -43,7 +43,7 @@ export default class Discoball {
   loginFailed(errorMessage) {
     this.dispatch({
       type: "ERROR",
-      error: "Login failed! " + errorMessage()
+      error: "Login failed! " + errorMessage
     });
   }
 
