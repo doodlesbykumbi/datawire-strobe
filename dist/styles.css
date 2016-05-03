@@ -94,7 +94,21 @@ span.focused-entry-header {
 }
 
 .endpoint-row {
+}
 
+.login-or-signup-div {
+    display: flex;
+}
+
+.login-div {
+    border: 1px solid green;
+    width: 45%;
+}
+
+.signup-div {
+    border: 1px solid red;
+    width: 45%;
+    display: flex;
 }
 
 th.reactable-header-sort-asc:after {
