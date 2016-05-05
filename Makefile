@@ -21,17 +21,17 @@ publish-production:
 browser: checkEnv npm test dist/browser.js
 
 checkEnv:
-	# @which -s dwc || { \
+	# @which dwc >/dev/null 2>&1 || { \
 	# 	echo "Could not find dwc -- is the correct venv active?" >&2 ;\
 	# 	echo "(use 'make pip' to initialize dwc in a new venv)" >&2 ;\
 	# 	exit 1 ;\
 	# }
-	@which -s quark || { \
+	@which quark >/dev/null 2>&1 || { \
 		echo "Could not find quark -- is the correct venv active?" >&2 ;\
 		echo "(use 'make install-quark' to initialize things in a new venv)" >&2 ;\
 		exit 1 ;\
 	}
-	@which -s npm || { \
+	@which npm >/dev/null 2>&1 || { \
 		echo "Could not find npm -- is it installed?" >&2 ;\
 		echo "(if not, check out https://docs.npmjs.com/getting-started/installing-node)" >&2 ;\
 		exit 1 ;\
