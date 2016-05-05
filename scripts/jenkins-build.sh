@@ -1,11 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
-set -x
+set -ex
+set -o pipefail
 
-uname -a
-pwd
-which python
-python -v
-which pip
-which virtualenv
-make clobber
+# Create a shiny new virtualenv for ourselves to work in.
+virtualenv .autobuild-venv
+. .autobuild-venv/bin/activate
+
+# Initialize our world
+make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="flynn/defect/logFixes" install-quark
+
+. $(pwd)/.autobuild-quark/config.sh
+
+make
+
