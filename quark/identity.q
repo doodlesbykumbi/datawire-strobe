@@ -1,36 +1,61 @@
 package Identity 1.0.0;
 
+// use ./quark-improvements.q;
+
 import quark.concurrent;
+// import nice;
 
 namespace datawire_connect {
   namespace identity {
+    // CommonResponse is a Future that carries a set of mandatory field names.
+    class CommonResponse extends Future {
+      // XXX I would've used a static for this, but I can't figure out how to 
+      // initialize it.
+      List<String> required;
+    }
+
     // LoginResponse is a Future that carries the two things we care about
     // from Identity's userAuth method.
 
-    class LoginResponse extends Future {
+    class LoginResponse extends CommonResponse {
       String orgID;
       String token;
+      
+      LoginResponse() {
+        super();
+        self.required = [ "orgID", "token" ];
+      }
     }
 
-    // LoginListener is really an impedance matcher between the Runtime's
+    class SignupResponse extends CommonResponse {
+      String orgID;
+      String token;
+      
+      SignupResponse() {
+        super();
+        self.required = [ "orgID", "token" ];
+      }
+    }
+
+    // IdentityListener is really an impedance matcher between the Runtime's
     // HTTPHandler and Future, with additional logic for the DatawireResult
     // object that Identity slings around.
     // 
     // Most of this class should be in the standard library.
 
-    class LoginListener extends HTTPHandler {
-      String email;
-      LoginResponse response;
+    class IdentityListener extends HTTPHandler {
+      String reqID;
+      CommonResponse response;
       Logger logger;
 
-      LoginListener(String email, LoginResponse response, Logger logger) {
-        self.email = email;
+      IdentityListener(String reqID, CommonResponse response, Logger logger) {
+        self.reqID = reqID;
         self.response = response;
         self.logger = logger;
       }
 
       void onHTTPInit(HTTPRequest request) {
-        self.logger.trace("onHTTPInit for " + self.email);
+        self.logger.trace("onHTTPInit for " + self.reqID);
       }
 
       void onHTTPResponse(HTTPRequest request, HTTPResponse response) {
@@ -38,7 +63,7 @@ namespace datawire_connect {
         JSONObject results = null;
         String body = response.getBody();
 
-        self.logger.trace("onHTTPResponse for " + self.email + ": " + 
+        self.logger.trace("onHTTPResponse for " + self.reqID + ": " + 
                           code.toString());
         self.logger.trace("body: " + body);
 
@@ -46,11 +71,20 @@ namespace datawire_connect {
           // All good.
           results = response.getBody().parseJSON();
 
-          self.response.orgID = results["orgID"];
-          self.response.token = results["token"];
+          int i = 0;
 
-          self.logger.info("auth good for " + self.email +
-                           " in org " + self.response.orgID);
+          List<String> required = self.response.required;
+
+          // XXX WHY DO WE NOT HAVE FOR???
+          while (i < required.size()) {
+            String key = required[i];
+            String value = results[key];
+
+            self.logger.trace("copying " + key + ": " + value);
+
+            self.response.setField(key, value);
+            i = i + 1;
+          }
 
           self.response.finish(null);
         }
@@ -68,18 +102,16 @@ namespace datawire_connect {
             error = "HTTP response " + code.toString();
           }
 
-          self.logger.info("auth failed for " + self.email + ": " + error);
-
           self.response.finish(error);
         }
       }
 
       void onHTTPError(HTTPRequest request, String message) {
-        self.logger.trace("onHTTPError for " + self.email + ": " + message);
+        self.logger.trace("onHTTPError for " + self.reqID + ": " + message);
       }
 
       void onHTTPFinal(HTTPRequest request) {
-        self.logger.trace("onHTTPFinal for " + self.email);
+        self.logger.trace("onHTTPFinal for " + self.reqID);
       }
     }
 
@@ -101,22 +133,36 @@ namespace datawire_connect {
       // Most of login should be in the standard library: literally all it
       // does is an HTTPS POST with some JSON-encoded parameters.
 
-      LoginResponse login(String email, String password) {
-        String url = self.makeURL([ "v1", "auth", email ]);
+      CommonResponse doPOST(String reqID, List<String> urlElements, Map<String, String> params,
+                            CommonResponse response) {
+        String url = self.makeURL(urlElements);
 
-        // // AUGH. We can't serialize Maps to JSON right now. Sigh.
-        // Map<String, String> params = new Map<String,String>();
-        // params["password"] = password;
-        // logger.trace("params[pw]: " + params["password"]);
-
+        // XXX This should work. It doesn't. cf https://github.com/datawire/quark/issues/132
         // JSONObject jParams = params.toJSON();
         // String jsonParams = jParams.toString();
 
-        String jsonParams = "{ \"password\": \"" + password + "\" }";
-        // logger.trace("jsonParams: " + jsonParams);
+        List<String> keys = params.keys();
+        List<String> jParams = [];
 
-        LoginResponse response = new LoginResponse();
-        LoginListener listener = new LoginListener(email, response, logger);
+        int i = 0;
+        while (i < keys.size()) {
+          String key = keys[i];
+          String value = params[key];
+
+          String nextParam = "\"" + key + "\": \"" + value + "\"";
+
+          logger.info("nextParam " + nextParam);
+
+          jParams.add(nextParam);
+
+          i = i + 1;
+        }
+
+        String jsonParams = "{ " + ",".join(jParams) + " }";
+
+        logger.trace(url + ": jsonParams: " + jsonParams);
+
+        IdentityListener listener = new IdentityListener(reqID, response, logger);
 
         HTTPRequest req = new HTTPRequest(url);
 
@@ -126,6 +172,26 @@ namespace datawire_connect {
         self.runtime.request(req, listener);
 
         return response;
+      }
+
+      LoginResponse login(String email, String password) {
+        // String jsonParams = "{ \"password\": \"" + password + "\" }";
+
+        return ?self.doPOST(email, [ "v1", "auth", email ],
+                            { "password": password }, new LoginResponse());
+      }
+
+      SignupResponse signup(String orgName,
+                            String adminName, String adminEmail, String adminPassword) {
+        Map<String, String> params = {
+          "orgName": orgName,
+          "adminName": adminName,
+          "adminEmail": adminEmail,
+          "adminPassword": adminPassword
+        };
+
+        return ?self.doPOST(orgName, [ "v1", "orgs" ], params, 
+                            new SignupResponse());
       }
     }
   }

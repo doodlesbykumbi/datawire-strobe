@@ -5,6 +5,8 @@ import { Router, Route, hashHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import VERSION from './Version';
+
 import Discoball from './Discoball';
 import reducer from './reducer';
 
@@ -45,7 +47,7 @@ try {
 		      var dwcUserOrgID = dwcLocalStorage.orgID;
 		      var dwcUserToken = dwcLocalStorage.token;
 
-		      logger.info("boo yah: [" + dwcUserOrgID + "]" + dwcUserEmail);
+		      logger.info("found credentials: [" + dwcUserOrgID + "]" + dwcUserEmail);
 
 		      discoball.loginSucceeded(dwcUserEmail, dwcUserOrgID, dwcUserToken);
 		    }
@@ -68,6 +70,11 @@ try {
 	  <Route path="/routes" component={RouteTable} />
 	</Route>;
 
+  ReactDOM.render(
+    <span>Datawire Connect UI -- { VERSION }</span>,
+    document.getElementById('version')
+  );
+
 	ReactDOM.render(
 	  <Provider store={store}>
 	    <Router history={hashHistory}>{routes}</Router>
@@ -89,6 +96,9 @@ catch (err) {
 		stackTrace.push(<span key={ k2 } className="main-error-stack-line">{ line }</span>);
 		i++;
 	});
+
+	console.error("ERROR: " + err.message);
+	console.error(err.stack);
 
 	var errDisplay = <div className="main-error">
 		<div className="main-error-text">ERROR: { err.message }</div>

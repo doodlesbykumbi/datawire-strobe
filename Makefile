@@ -4,7 +4,15 @@ publish:
 	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
 		echo "You cannot publish with a dirty tree." ;\
 	else \
-		echo "Publishing to gh-pages..." ;\
+		echo "Publishing to gh-pages (dev)..." ;\
+		git subtree push --prefix dist strobe-dev gh-pages ;\
+	fi
+
+publish-production:
+	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
+		echo "You cannot publish with a dirty tree." ;\
+	else \
+		echo "Publishing to gh-pages (production)..." ;\
 		git subtree push --prefix dist origin gh-pages ;\
 	fi
 
@@ -51,6 +59,7 @@ SOURCEFILES= \
 	src/components/RouteTable.jsx \
 	src/components/UserInfo.jsx \
 	src/Discoball.jsx \
+	src/Version.jsx \
 	src/index.jsx \
 	src/reduceFocusedService.jsx \
 	src/reducer.jsx \
@@ -60,14 +69,10 @@ SOURCEFILES= \
 	src/utils.jsx 
 		
 dist/browser.js: $(SOURCEFILES) $(QUARKFILES)
-	cd src && "$$(npm bin)/browserify" \
-		-t [ babelify --presets [ es2015 ] ] --extension=.jsx \
-		-d -o ../dist/browser.js \
-		-x ws \
-		-r quark \
-		-r quark/quark_node_runtime \
-		-r strobe \
-		index.jsx
+	npm run build
+
+watch:
+	npm run watch
 
 bmin.js: browser.js
 	"$$(npm bin)/uglifyjs" \

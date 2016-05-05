@@ -23,6 +23,18 @@ export default class Discoball {
   }
 
   login(email, password) {
+    if ((typeof(email) != "string") || (email.length < 1)) {
+      this.logger.error("can't log in with no email");
+      this.loginFailed("can't log in with no email");
+      return;
+    }
+
+    if ((typeof(password) != "string") || (password.length < 1)) {
+      this.logger.error("can't log in with no password");
+      this.loginFailed("can't log in with no password");
+      return;
+    }
+
     this.logger.info("Logging into " + this.identityURL + " as " + email);
 
     var idc = new IdentityClient(this.identityURL);
@@ -40,20 +52,86 @@ export default class Discoball {
     });
   }
 
+  signup(orgName, adminName, adminEmail, adminPassword1, adminPassword2) {
+    if ((typeof(orgName) != "string") || (orgName.length < 1)) {
+      this.logger.error("can't sign up with no orgName");
+      this.signupFailed("can't sign up with no orgName");
+      return;
+    }
+
+    if ((typeof(adminName) != "string") || (adminName.length < 1)) {
+      this.logger.error("can't sign up with no adminName");
+      this.signupFailed("can't sign up with no adminName");
+      return;
+    }
+
+    if ((typeof(adminEmail) != "string") || (adminEmail.length < 1)) {
+      this.logger.error("can't sign up with no adminEmail");
+      this.signupFailed("can't sign up with no adminEmail");
+      return;
+    }
+
+    if ((typeof(adminPassword1) != "string") || (adminPassword1.length < 1)) {
+      this.logger.error("can't sign up with no adminPassword1");
+      this.signupFailed("can't sign up with no adminPassword1");
+      return;
+    }
+
+    if (adminPassword1 != adminPassword2) {
+      this.logger.error("can't sign up with no adminPassword1");
+      this.signupFailed("can't sign up with no adminPassword1");
+      return;
+    }
+
+    this.logger.info("Signing up at " + this.identityURL + " as [" + orgName + "]" + adminEmail);
+
+    var idc = new IdentityClient(this.identityURL);
+    var lr = idc.signup(orgName, adminName, adminEmail, adminPassword1);
+
+    lr.onFinished({
+      onFuture: (result) => {
+        if (result.getError()) {
+          this.signupFailed(result.getError());
+        }
+        else {
+          this.signupSucceeded(orgName, adminEmail, result.orgID, result.token)
+        }
+      }
+    });
+  }
+
   loginFailed(errorMessage) {
     this.dispatch({
       type: "ERROR",
-      error: "Login failed! " + errorMessage()
+      error: "Login failed! " + errorMessage
     });
   }
 
   loginSucceeded(email, orgID, token) {
+    console.log("loginSucceeded: this " + this);
+    console.log("LOGGED IN! orgID " + this.orgID + " -- localStorage " + typeof(localStorage));
+
+    this.processLogin(email, orgID, token);
+  }
+
+  signupFailed(errorMessage) {
+    this.dispatch({
+      type: "ERROR",
+      error: "Login failed! " + errorMessage
+    });
+  }
+
+  signupSucceeded(orgName, adminEmail, orgID, token) {
+    console.log("signupSucceeded: this " + this);
+    console.log("LOGGED IN! orgID " + this.orgID + " -- localStorage " + typeof(localStorage));
+
+    this.processLogin(adminEmail, orgID, token);
+  }
+
+  processLogin(email, orgID, token) {
     this.email = email;
     this.orgID = orgID;
     this.token = token;
-
-    console.log("loginSucceeded: this " + this);
-    console.log("LOGGED IN! orgID " + this.orgID + " -- localStorage " + typeof(localStorage));
 
     if (typeof(localStorage) != 'undefined') {
       this.logger.info("Updating local storage with login info");
