@@ -7,6 +7,9 @@ set -o pipefail
 virtualenv .autobuild-venv
 . .autobuild-venv/bin/activate
 
+# Smite any previous Quark installation
+rm -rf .autobuild-quark
+
 # Initialize our world
 make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="flynn/defect/logFixes" install-quark
 
