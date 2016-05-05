@@ -7,13 +7,25 @@ set -o pipefail
 virtualenv .autobuild-venv
 . .autobuild-venv/bin/activate
 
-# Smite any previous Quark installation
-rm -rf .autobuild-quark
+# Smite any previous Quark & NVM installations
+rm -rf .autobuild-quark .autobuild-nvm
 
 # Initialize our world
 make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="flynn/defect/logFixes" install-quark
 
 . $(pwd)/.autobuild-quark/config.sh
+
+# ...including node etc.
+cp /dev/null .nvm_fake_profile
+NVM_DIR="/Users/flynn/.autobuild-nvm"
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | \
+	env NVM_DIR="$(pwd)/.autobuild-nvm" PROFILE="$(pwd)/.nvm_fake_profile" bash
+
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+nvm install 4.2.2 &&
+nvm alias default 4.2.2
 
 make
 
