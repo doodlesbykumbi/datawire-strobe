@@ -19,9 +19,14 @@ publish-production:
 browser: checkEnv npm test dist/browser.js
 
 checkEnv:
+	@which -s dwc || { \
+		echo "Could not find dwc -- is the correct venv active?" >&2 ;\
+		echo "(use 'make pip' to initialize dwc in a new venv)" >&2 ;\
+		exit 1 ;\
+	}
 	@which -s quark || { \
 		echo "Could not find quark -- is the correct venv active?" >&2 ;\
-		echo "(use 'make pip' to initialize things in a new venv)" >&2 ;\
+		echo "(use 'make install-quark' to initialize things in a new venv)" >&2 ;\
 		exit 1 ;\
 	}
 	@which -s npm || { \
@@ -31,7 +36,12 @@ checkEnv:
 	}
 
 pip:
-	pip install datawire-quark datawire-cloudtools
+	pip install datawire-cloudtools
+
+install-quark:
+	curl -sL https://raw.githubusercontent.com/datawire/quark/develop/install.sh | sh -s $$QUARKBRANCH
+	
+datawire-connect: checkEnv
 	quark install --python https://raw.githubusercontent.com/datawire/datawire-connect/master/quark/datawire_connect-1.1.q
 
 node_modules:
