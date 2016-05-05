@@ -11,7 +11,8 @@ import Discoball from './Discoball';
 import reducer from './reducer';
 
 import App from './components/App';
-import { LoginOrSignup } from './components/LoginOrSignup';
+import { Login } from './components/Login.jsx';
+import { Signup } from './components/Signup.jsx';
 import { RouteTable } from './components/RouteTable';
 
 import { quark } from 'quark';
@@ -66,7 +67,8 @@ try {
   }
 
 	const routes = <Route component={App}>
-	  <Route path="/" component={LoginOrSignup} />
+		<Route path="/" component={Login} />
+		<Route path="/signup" component={Signup} />
 	  <Route path="/routes" component={RouteTable} />
 	</Route>;
 
