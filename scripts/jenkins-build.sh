@@ -40,7 +40,7 @@ set -x
 export GIT_DEPLOY_DIR=dist
 export GIT_DEPLOY_BRANCH=gh-pages
 
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+CURRENT_BRANCH=${GIT_BRANCH##*/}
 
 if [ $CURRENT_BRANCH = "master" ]; then
 	export GIT_DEPLOY_REPO=origin
