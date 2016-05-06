@@ -27,7 +27,7 @@ b.add("index.jsx");
 b.require([
   'quark',
   'quark/quark_node_runtime',
-  'strobe'
+  'Strobe'
 ]);
 
 b.exclude('ws');
