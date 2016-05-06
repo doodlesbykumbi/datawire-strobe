@@ -48,7 +48,7 @@ node_modules:
 	mkdir node_modules
 
 npm: node_modules
-	npm install
+	npm install >/dev/null	# What an appalling command.
 
 .ALWAYS:
 

@@ -5,7 +5,10 @@ set -o pipefail
 
 # Create a shiny new virtualenv for ourselves to work in.
 virtualenv .autobuild-venv
+
+set +x
 . .autobuild-venv/bin/activate
+set -x
 
 # Smite any previous Quark & NVM installations
 rm -rf .autobuild-quark .autobuild-nvm
