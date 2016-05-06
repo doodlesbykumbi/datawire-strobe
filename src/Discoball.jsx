@@ -1,5 +1,5 @@
 import Stroboscope from './stroboscope';
-import { Strobe as DWCStrobe } from 'strobe';
+import { Strobe as DWCStrobe } from 'Strobe';
 
 import { datawire_connect } from 'Identity';
 const IdentityClient = datawire_connect.identity.Client;
