@@ -19,6 +19,8 @@ make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="flynn/defect/log
 cp /dev/null .nvm_fake_profile
 NVM_DIR="$(pwd)/.autobuild-nvm"
 
+set +x
+
 # Yes, really, the NVM_DIR setting in the 'env' command below does make sense.
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | \
 	env NVM_DIR="$NVM_DIR" PROFILE="$(pwd)/.nvm_fake_profile" bash
