@@ -1,3 +1,5 @@
+QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/flynn/feature/installerGetOpts/install.sh
+
 all: browser
 
 publish:
@@ -19,26 +21,34 @@ publish-production:
 browser: checkEnv npm test dist/browser.js
 
 checkEnv:
-	@which -s quark || { \
+	# @which dwc >/dev/null 2>&1 || { \
+	# 	echo "Could not find dwc -- is the correct venv active?" >&2 ;\
+	# 	echo "(use 'make pip' to initialize dwc in a new venv)" >&2 ;\
+	# 	exit 1 ;\
+	# }
+	@which quark >/dev/null 2>&1 || { \
 		echo "Could not find quark -- is the correct venv active?" >&2 ;\
-		echo "(use 'make pip' to initialize things in a new venv)" >&2 ;\
+		echo "(use 'make install-quark' to initialize things in a new venv)" >&2 ;\
 		exit 1 ;\
 	}
-	@which -s npm || { \
+	@which npm >/dev/null 2>&1 || { \
 		echo "Could not find npm -- is it installed?" >&2 ;\
 		echo "(if not, check out https://docs.npmjs.com/getting-started/installing-node)" >&2 ;\
 		exit 1 ;\
 	}
 
-pip:
-	pip install datawire-quark datawire-cloudtools
+install-quark:
+	curl -sL "${QUARKINSTALLER}" | bash -s -- ${QUARKINSTALLARGS} ${QUARKBRANCH}
+
+datawire-connect: checkEnv
 	quark install --python https://raw.githubusercontent.com/datawire/datawire-connect/master/quark/datawire_connect-1.1.q
+	pip install datawire-cloudtools
 
 node_modules:
 	mkdir node_modules
 
 npm: node_modules
-	npm install
+	npm install >/dev/null	# What an appalling command.
 
 .ALWAYS:
 
@@ -84,7 +94,7 @@ bmin.js: browser.js
 	   | fgrep -v 'Condition always false'
 
 clean:
-	-rm -f dist/browser.js
+	-rm -f dist/browser.js quark/*.qc
 
 clobber: clean
 	-find . -name '*.qc' -print0 | xargs -0 rm
