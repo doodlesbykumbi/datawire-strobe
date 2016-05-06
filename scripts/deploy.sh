@@ -126,6 +126,9 @@ main() {
 		disable_expanded_output
 		git fetch --force $repo $deploy_branch:$deploy_branch
 		enable_expanded_output
+	else
+		echo "Deploy branch '$deploy_branch' is not accessible. Aborting." >&2
+		return 1
 	fi
 
 	# check if deploy_branch exists locally
