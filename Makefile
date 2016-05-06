@@ -94,7 +94,7 @@ bmin.js: browser.js
 	   | fgrep -v 'Condition always false'
 
 clean:
-	-rm -f dist/browser.js
+	-rm -f dist/browser.js quark/*.qc
 
 clobber: clean
 	-find . -name '*.qc' -print0 | xargs -0 rm
