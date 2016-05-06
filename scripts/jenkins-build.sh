@@ -37,9 +37,17 @@ make
 
 set -x
 
-git remote add strobe-dev git@github.com:datawire/strobe-dev.git
-
 export GIT_DEPLOY_DIR=dist
 export GIT_DEPLOY_BRANCH=gh-pages
-export GIT_DEPLOY_REPO=strobe-dev
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ $CURRENT_BRANCH = "master" ]; then
+	export GIT_DEPLOY_REPO=origin
+else
+	git remote add strobe-dev git@github.com:datawire/strobe-dev.git
+
+	export GIT_DEPLOY_REPO=strobe-dev
+fi
+
 bash scripts/deploy.sh -v
