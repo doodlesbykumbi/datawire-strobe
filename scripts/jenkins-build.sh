@@ -35,6 +35,8 @@ nvm alias default 4.2.2
 
 make
 
+git remote add strobe-dev git@github.com:datawire/strobe-dev.git
+
 export GIT_DEPLOY_DIR=dist
 export GIT_DEPLOY_BRANCH=gh-pages
 export GIT_DEPLOY_REPO=strobe-dev
