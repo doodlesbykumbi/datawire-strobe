@@ -30,5 +30,5 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | \
 nvm install 4.2.2 &&
 nvm alias default 4.2.2
 
+make clobber
 make
-
