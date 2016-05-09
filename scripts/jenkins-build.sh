@@ -14,6 +14,7 @@ set -x
 rm -rf .autobuild-quark .autobuild-nvm
 
 # Initialize our world
+make install-deps
 make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="develop" install-quark
 
 . $(pwd)/.autobuild-quark/config.sh

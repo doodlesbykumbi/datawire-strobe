@@ -37,6 +37,9 @@ checkEnv:
 		exit 1 ;\
 	}
 
+install-deps:
+	pip install semantic_version docopt
+
 install-quark:
 	curl -sL "${QUARKINSTALLER}" | bash -s -- ${QUARKINSTALLARGS} ${QUARKBRANCH}
 
