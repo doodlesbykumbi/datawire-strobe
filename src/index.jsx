@@ -67,7 +67,6 @@ try {
   }
 
 	function requireAuth(nextState, replace) {
-		return;
 		if (!discoball.email) {
 			replace({
 				pathname: '/',

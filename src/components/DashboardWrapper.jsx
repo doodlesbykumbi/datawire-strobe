@@ -10,11 +10,11 @@ import { NumericInteger as sortInteger } from 'reactable';
 import { Error } from './Error';
 import { UserInfo } from './UserInfo';
 import { Dashboard } from './Dashboard.jsx';
+import { Services } from './Services.jsx';
+import { Monitor } from './Monitor.jsx';
 import { MenuItem } from './MenuItem.jsx';
 
 import classNames from 'classnames/bind';
-
-
 
 const menuItems = [
     {
@@ -33,8 +33,8 @@ const menuItems = [
 
 const pages = [
     <Dashboard/>,
-    'something',
-    'another'
+    <Services/>,
+    <Monitor/>
 ];
 
 
@@ -56,7 +56,28 @@ const DashboardWrapperCore = React.createClass({
             currentMenuItem: index,
         });
     },
+    handleSidebarClick: function() {
+        $(this.refs.sidebar).sidebar('toggle');
+    },
+    doLogout: function() {
+        var logger = this.props.logger;
+
+        // Smite local storage.
+        if (typeof(localStorage) != 'undefined') {
+            logger.info("Smiting local storage login info");
+
+            localStorage.removeItem("io.datawire.strobe");
+        }
+
+        this.props.dispatch({ type: 'LOGOUT' });
+        window.location = "#";
+    },
     render: function () {
+
+        let userEmail = '';
+        if (this.props.user) {
+            userEmail = this.props.user.get('email').split("@")[0];
+        }
 
         const menus = menuItems.map((menuItem, index) => {
             const boundClick = this.handleMenuClick.bind(this, index);
@@ -68,12 +89,12 @@ const DashboardWrapperCore = React.createClass({
         return (
             <div ref="root">
                 {/* Responsive sidebar menu */}
-                <div className="ui sidebar inverted vertical menu">
-                    <div className="item" href="./login.html">
+                <div ref="sidebar" className="ui sidebar inverted vertical menu">
+                    <div className="item" onClick={ this.doLogout }>
                         <h4 className="ui header">
                             <img className="ui image" src="assets/user_icon.svg"/>
                             <div className="content">
-                                Hello, Richard
+                                { userEmail }
                             </div>
                         </h4>
                     </div>
@@ -84,11 +105,11 @@ const DashboardWrapperCore = React.createClass({
                         {/* Non-responsive main left menu */}
                         <div className="ui left fixed vertical inverted menu">
                             <div className="item"/>
-                            <div className="item" href="./login.html">
+                            <div className="item" onClick={ this.doLogout }>
                                 <h4 className="ui header">
                                     <img className="ui image" src="assets/user_icon.svg"/>
                                     <div className="content">
-                                        Hello, Richard
+                                        { userEmail }
                                     </div>
                                 </h4>
                             </div>
@@ -100,7 +121,7 @@ const DashboardWrapperCore = React.createClass({
                             {/* Responsive top menu */}
                             <div className="ui fixed inverted main menu">
                                 <div className="ui container">
-                                    <a className="launch item sidebar-toggle">
+                                    <a className="launch item sidebar-toggle" onClick={ this.handleSidebarClick }>
                                         <img className="ui image" src="assets/list-view.svg" alt/>
                                     </a>
                                 </div>
