@@ -44,7 +44,7 @@ const SignupCore = React.createClass({
       logger.info("Login: logged in, going for routes");
 
       setTimeout(() => {
-        window.location = '#/routes';
+        window.location = '#/dashboard';
       }, 2000);
 
       return <div>
@@ -58,7 +58,7 @@ const SignupCore = React.createClass({
 
       return <div>
         <Error />
-            <div className="ui center aligned middle aligned grid">
+            <div className="authentication ui center aligned middle aligned grid">
               <div className="column">
                 <div className="ui very padded container">
                   <img src="https://15113-presscdn-0-99-pagely.netdna-ssl.com/wp-content/uploads/2015/12/datawire-logo-small.png" className="image" />
@@ -66,7 +66,7 @@ const SignupCore = React.createClass({
                 <div className="ui very padded raised segment">
                   <form className="ui large form">
                     <div>
-                      <h2 className="ui center aligned header">Get Your Free Datawire Account</h2>
+                      <h2 className="ui center aligned">Get Your Free Datawire Account</h2>
                       <div className="field">
                         <div className="ui input">
                           <input type="text" ref="signupOrgName" placeholder="Organisation Name" />
