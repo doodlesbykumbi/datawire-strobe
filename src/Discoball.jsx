@@ -162,6 +162,6 @@ export default class Discoball {
 
     this.dispatch({ type: 'SET_STROBE', strobe: strobe });
 
-    window.location = '#/dashboard';
+    window.location = '#/routes';
   }
 }

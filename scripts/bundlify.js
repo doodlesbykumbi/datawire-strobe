@@ -40,9 +40,7 @@ function bundle() {
 
 if (doWatch) {
   b.on('update', bundle);
-  b.on('log', function (x) {
-    console.log(new Date(), x);
-  });
+  b.on('log', console.log);
 
   console.log("running initial bundle...");
 }
