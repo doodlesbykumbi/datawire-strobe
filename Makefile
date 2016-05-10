@@ -1,4 +1,4 @@
-QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/flynn/feature/installerGetOpts/install.sh
+QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/develop/install.sh
 
 all: browser
 
@@ -65,7 +65,8 @@ QUARKFILES= \
 SOURCEFILES= \
 	src/components/App.jsx \
 	src/components/Error.jsx \
-	src/components/LoginOrSignup.jsx \
+	src/components/Login.jsx \
+	src/components/Signup.jsx \
 	src/components/RouteTable.jsx \
 	src/components/UserInfo.jsx \
 	src/Discoball.jsx \
@@ -76,8 +77,8 @@ SOURCEFILES= \
 	src/reduceRoutes.jsx \
 	src/reduceUser.jsx \
 	src/stroboscope.jsx \
-	src/utils.jsx 
-		
+	src/utils.jsx
+
 dist/browser.js: $(SOURCEFILES) $(QUARKFILES)
 	npm run build
 

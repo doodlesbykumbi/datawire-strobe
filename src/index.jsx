@@ -11,8 +11,9 @@ import Discoball from './Discoball';
 import reducer from './reducer';
 
 import App from './components/App';
-import { LoginOrSignup } from './components/LoginOrSignup';
-import { RouteTable } from './components/RouteTable';
+import { Login } from './components/Login.jsx';
+import { Signup } from './components/Signup.jsx';
+import { DashboardWrapper } from './components/DashboardWrapper.jsx';
 
 import { quark } from 'quark';
 
@@ -65,15 +66,25 @@ try {
 		}
   }
 
+	function requireAuth(nextState, replace) {
+		if (!discoball.email) {
+			replace({
+				pathname: '/',
+				state: { nextPathname: nextState.location.pathname }
+			})
+		}
+	}
+
 	const routes = <Route component={App}>
-	  <Route path="/" component={LoginOrSignup} />
-	  <Route path="/routes" component={RouteTable} />
+		<Route path="/" component={Login} />
+		<Route path="/signup" component={Signup} />
+	  	<Route path="/dashboard" component={DashboardWrapper} onEnter={requireAuth} />
 	</Route>;
 
-  ReactDOM.render(
-    <span>Datawire Connect UI -- { VERSION }</span>,
-    document.getElementById('version')
-  );
+  //ReactDOM.render(
+  //  <span>Datawire Connect UI -- { VERSION }</span>,
+  //  document.getElementById('version')
+  //);
 
 	ReactDOM.render(
 	  <Provider store={store}>
