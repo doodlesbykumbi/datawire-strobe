@@ -8,20 +8,13 @@ import { UserInfo } from './UserInfo';
 
 const ListItemCore = React.createClass({
     mixins: [PureRenderMixin],
-    componentDidMount: function () {
-        console.log("meow");
-        // Elements to inject
-        var mySVGsToInject = this.refs.root.querySelectorAll('img.inject-me');
-        // Do the injection
-        SVGInjector(mySVGsToInject);
-    },
     render: function () {
         return (
-                <div className="ui segment listitem active" ref="root">
+                <div className="ui segment listitem active">
                     <div className="ui grid middle aligned content">
-                        <div className="twelve wide tablet five wide computer column title good">
+                        <div className="twelve wide tablet five wide computer column title bad">
                             <img className="ui right spaced image inject-me" src="assets/active_service_icon.svg"/>
-                            <span>{ this.props.title }</span>
+                            <span>Messenger System</span>
                         </div>
                         <div className="computer only four wide computer column version">
                             Version 1.0

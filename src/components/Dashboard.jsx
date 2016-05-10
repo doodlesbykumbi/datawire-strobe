@@ -15,34 +15,7 @@ const DashboardCore = React.createClass({
         // Do the injection
         SVGInjector(mySVGsToInject);
     },
-    focus: function(service, endpoints) {
-        var logger = this.props.logger;
-
-        logger.info("FOCUS: " + service);
-
-        this.props.dispatch({
-            type: 'FOCUS',
-            focusedService: {
-                service: service,
-                endpoints: endpoints
-            }
-        })
-    },
     render: function () {
-
-        var routes = this.props.routes;
-
-        var table = <div>Waiting for service info...</div>
-
-            var rows = [];
-
-            routes.forEach((endpoints, service) => {
-                console.log(endpoints, service);
-                rows.push(
-                    <ListItem title={service}/>
-                );
-            });
-
         return (
                     <div className="ui one column row" ref="root">
                         <div className="ui column">
@@ -52,10 +25,10 @@ const DashboardCore = React.createClass({
                                     </h2>
                                 </div>
                                 <div className="right aligned column">
-                                    <div className="inline-button lightable">
+                                    <div className="inline-button active lightable">
                                         <img className="vertical-center inject-me" src="assets/grid_view.svg" alt/>
                                     </div>
-                                    <div className="inline-button active lightable">
+                                    <div className="inline-button lightable">
                                         <img className="vertical-center inject-me" src="assets/list-view.svg" alt/>
                                     </div>
                                     <div className="inline-button lightable">
@@ -66,7 +39,8 @@ const DashboardCore = React.createClass({
                             <div className="ui clearing divider"/>
                         </div>
                         <div className="column">
-                            { rows.length ? rows : <div>No services registered</div> }
+                            <ListItem />
+                            <ListItem />
                         </div>
                     </div>
         );
