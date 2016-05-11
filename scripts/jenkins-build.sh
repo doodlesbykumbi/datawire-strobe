@@ -66,9 +66,12 @@ if [ -z "$VERSION" ]; then
 	exit 1
 fi
 
-echo "==== Building ${VERSION} on ${CURRENT_BRANCH} at ${GIT_COMMIT}"
-
 sed -i.bak -e "s/0\.0\.0/${VERSION}/" src/Version.jsx
+
+echo "==== Updated Version.jsx:"
+cat src/Version.jsx
+
+echo "==== Building ${VERSION} on ${CURRENT_BRANCH} at ${GIT_COMMIT}"
 
 make
 
@@ -79,6 +82,6 @@ bash scripts/deploy.sh -v
 git checkout src/Version.jsx
 rm src/Version.jsx.bak
 
-git tag "v${VERSION}" "${GIT_COMMIT}"
+git tag -a "v${VERSION}" -m "v${VERSION} by Jenkins" "${GIT_COMMIT}"
 git push --tags origin
 
