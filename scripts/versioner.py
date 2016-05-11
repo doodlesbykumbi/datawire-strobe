@@ -146,6 +146,11 @@ class ReleaseDelta(object):
             self.MINOR.delta = self.FIX.delta
 
     def commits(self):
+        # for commit, subject in [
+        #     ( '123456', '[MINOR]' )
+        # ]:
+        #     yield commit, subject
+
         for commit, subject in self.vbr.recent_commits(self.since_tag):
             if self.commit_map and (commit in self.commit_map):
                 subject = self.commit_map[commit]
@@ -330,8 +335,9 @@ if __name__ == '__main__':
     next_version = vbr.next_version(magic_pre=args.get('--magic-pre', False),
                                pre_release=args.get('--pre', None),
                                build=args.get('--build', None),
-                               since_tag=args.get('--since', None))
-    #                           commit_map=commit_map, reduced_zero=False))
+                               since_tag=args.get('--since', None),
+                               reduced_zero=False)
+    #                           commit_map=commit_map)
 
     if next_version:
         print(next_version)
