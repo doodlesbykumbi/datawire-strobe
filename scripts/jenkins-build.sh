@@ -39,6 +39,12 @@ set -x
 export GIT_DEPLOY_DIR=dist
 export GIT_DEPLOY_BRANCH=gh-pages
 
+echo "==== env"
+env | sort
+
+echo "==== git"
+git status
+
 CURRENT_BRANCH=${GIT_BRANCH##*/}
 
 if [ $CURRENT_BRANCH = "master" ]; then
