@@ -53,13 +53,20 @@ else
 	VERSION=$(python scripts/versioner.py --magic-pre)
 fi
 
+if [ -z "$VERSION" ]; then
+	echo "==== Skipping build"
+	exit 1
+fi
+
 echo "==== Building ${VERSION} on ${CURRENT_BRANCH} at ${GIT_COMMIT}"
 
 sed -i.bak -e "s/0\.0\.0/${VERSION}/" src/Version.jsx
 
-make
+# make
 
-bash scripts/deploy.sh -v
+# bash scripts/deploy.sh -v
+
+echo "Pretending build worked"
 
 git checkout src/Version.jsx
 rm src/Version.jsx.bak

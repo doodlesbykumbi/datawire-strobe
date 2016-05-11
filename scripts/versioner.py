@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+
 import logging
 
 import subprocess, re, os
@@ -82,9 +84,12 @@ class VersionedBranch (object):
 
         for line in self.repo.git.log("--reverse", "--oneline", self.branch_name,
                                       "--not", since_tag).split("\n"):
-            commitID, subject = line.split(" ", 1)
+            self.log.debug("line: %s" % line)
 
-            yield commitID, subject
+            if line:
+                commitID, subject = line.split(" ", 1)
+
+                yield commitID, subject
 
     def next_version(self, magic_pre=False, since_tag=None, reduced_zero=True, commit_map=None,
                      pre_release=None, build=None):
@@ -179,13 +184,15 @@ class ReleaseDelta(object):
 
                 finalDelta = delta
 
-        assert commits, "no commits found, no point in releasing"
+        if not commits:
+            self.log.debug("version_change: no commits since %s" % self.vbr.version)
+            return None, None
+        else:
+            self.log.debug("folding %d commit%s into %s: delta %s" % 
+                           (len(commits), "" if len(commits) == 1 else "s", 
+                            finalDelta, finalDelta.delta))
 
-        self.log.debug("folding %d commit%s into %s: delta %s" % 
-                       (len(commits), "" if len(commits) == 1 else "s", 
-                        finalDelta, finalDelta.delta))
-
-        return finalDelta, commits
+            return finalDelta, commits
 
     @property
     def next_version(self):
@@ -193,37 +200,41 @@ class ReleaseDelta(object):
         self.log.debug("version start: %s" % version)
 
         finalDelta, commits = self.version_change()
-        self.log.debug("final commit list: %s" % 
-                       "\n".join(map(lambda x: "%s %s: %s" % (x[0].tag, x[1], x[2]),
-                                     commits)))
-        self.log.debug("final change:      %s %s" % (finalDelta, finalDelta.delta))
 
-        version = finalDelta.xform(version)
+        if finalDelta:
+            self.log.debug("final commit list: %s" % 
+                           "\n".join(map(lambda x: "%s %s: %s" % (x[0].tag, x[1], x[2]),
+                                         commits)))
+            self.log.debug("final change:      %s %s" % (finalDelta, finalDelta.delta))
 
-        if self.magic_pre:
-            pre = self.vbr.version.prerelease
+            version = finalDelta.xform(version)
 
-            if pre:
-                pre = pre[0]
+            if self.magic_pre:
+                pre = self.vbr.version.prerelease
 
-                if pre and pre.startswith('b'):
-                    if finalDelta > self.FIX:
-                        pre = "b1"
-                    else:
-                        pre = "b" + str(int(pre[1:]) + 1)
+                if pre:
+                    pre = pre[0]
 
-                self.log.debug("magic prerelease:  %s" % pre)
-                version.prerelease = (pre,)
-        elif self.pre_release:
-            version.prerelease = (self.pre_release,)
+                    if pre and pre.startswith('b'):
+                        if finalDelta > self.FIX:
+                            pre = "b1"
+                        else:
+                            pre = "b" + str(int(pre[1:]) + 1)
 
-        if self.build:
-            version.build = (self.build,)
+                    self.log.debug("magic prerelease:  %s" % pre)
+                    version.prerelease = (pre,)
+            elif self.pre_release:
+                version.prerelease = (self.pre_release,)
 
-        self.log.debug("version has to change from %s to %s" %
-                       (self.vbr.version, version))
+            if self.build:
+                version.build = (self.build,)
 
-        return version
+            self.log.debug("version has to change from %s to %s" %
+                           (self.vbr.version, version))
+
+            return version
+        else:
+            return None
 
 class VersionedRepo (object):
     """ Representation of a git repo that follows our versioning rules """
@@ -311,8 +322,14 @@ if __name__ == '__main__':
     #     '2d0b5ec': '[MINOR] WTFO?'
     # }
 
-    print(vbr.next_version(magic_pre=args.get('--magic-pre', False),
-                           pre_release=args.get('--pre', None),
-                           build=args.get('--build', None),
-                           since_tag=args.get('--since', None)))
-#                           commit_map=commit_map, reduced_zero=False))
+    next_version = vbr.next_version(magic_pre=args.get('--magic-pre', False),
+                               pre_release=args.get('--pre', None),
+                               build=args.get('--build', None),
+                               since_tag=args.get('--since', None))
+    #                           commit_map=commit_map, reduced_zero=False))
+
+    if next_version:
+        print(next_version)
+    else:
+        sys.stderr.write("no changes since %s\n" % vbr.version)
+        sys.exit(1)
