@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 
 import VERSION from './Version';
 
+window.StrobeVersion = VERSION;
+
 import Discoball from './Discoball';
 import reducer from './reducer';
 
