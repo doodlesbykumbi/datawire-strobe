@@ -57,7 +57,7 @@ body.pushable>.pusher {
   background: #363C4D;
 }
 
-.ui.segments .segment.listitem.active {
+.ui.segments .segment.listitem.running {
   opacity: 1;
   background: #3E4457;
 }
@@ -94,8 +94,42 @@ body.pushable>.pusher {
   vertical-align: middle;
 }
 
+.sidebar .header th {
+  font-size: 11px;
+  color: #9B9B9B;
+  letter-spacing: -0.22px;
+  text-transform: uppercase !important;
+}
 
-.lightable.active .fillable, .lightable.active .strokable {
+.sidebar .heading {
+  /* Shopping Cart: */
+  font-size: 28px;
+  color: #000000;
+  letter-spacing: -0.59px;
+}
+
+.title:not(.active) + .ui.segments .segment.listitem  {
+  border-radius: .28571429rem;
+}
+
+.detailitem {
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+  opacity: 0.4;
+}
+
+.sidebar.right > div > .grid {
+  max-width: 90% !important;
+}
+
+.sidebar .content {
+  font-size: 16px;
+  color: #9B9B9B;
+  letter-spacing: -0.31px;
+}
+
+.lightable.active .fillable, .lightable.running .fillable, .lightable.active .strokable, .lightable.running .strokable {
   opacity: 1;
 }
 
