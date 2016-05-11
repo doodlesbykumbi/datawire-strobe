@@ -52,13 +52,13 @@ CURRENT_BRANCH=${GIT_BRANCH##*/}
 if [ $CURRENT_BRANCH = "master" ]; then
 	export GIT_DEPLOY_REPO=origin
 
-	VERSION=$(python scripts/versioner.py)
+	VERSION=$(python scripts/versioner.py --verbose)
 else
 	git remote add strobe-dev git@github.com:datawire/strobe-dev.git
 
 	export GIT_DEPLOY_REPO=strobe-dev
 
-	VERSION=$(python scripts/versioner.py --magic-pre)
+	VERSION=$(python scripts/versioner.py --verbose --magic-pre)
 fi
 
 if [ -z "$VERSION" ]; then
