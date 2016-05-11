@@ -259,10 +259,15 @@ class VersionedRepo (object):
         if not vbr:
             source = 'Git'
 
-            head = self.repo.active_branch
+            head = None
 
             if branch_name:
+                print(self.repo.heads)
+
                 head = self.repo.heads[branch_name]
+            else:
+                # head = self.repo.active_branch
+                head = self.repo.head                
 
             if not head:
                 self.log.warning("get_branch: no branch %s" % branch_name)

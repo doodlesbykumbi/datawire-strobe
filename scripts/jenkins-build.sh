@@ -45,6 +45,8 @@ env | sort
 echo "==== git"
 git status
 
+echo "==== versioner"
+
 CURRENT_BRANCH=${GIT_BRANCH##*/}
 
 if [ $CURRENT_BRANCH = "master" ]; then
