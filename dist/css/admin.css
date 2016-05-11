@@ -24,6 +24,10 @@ body.pushable>.pusher {
   content: none;
 }
 
+.ui.divided.grid:not([class*="vertically divided"])>.column:not(.row), .ui.divided.grid:not([class*="vertically divided"])>.row>.column {
+  box-shadow: -1px 0 0 0 #3E4456;
+}
+
 .listitem .good .fillable {
   fill: #7ED321;
   opacity: 1;
@@ -44,13 +48,16 @@ body.pushable>.pusher {
   background-color: #3E4457;
 }
 
-.ui.segment.listitem {
+.ui.segments .segment.listitem {
   background: #3E4457;
   opacity: 0.5;
-  border-radius: 6px;
 }
 
-.ui.segment.listitem.active {
+.ui.segments .segment.detailitem {
+  background: #363C4D;
+}
+
+.ui.segments .segment.listitem.active {
   opacity: 1;
   background: #3E4457;
 }
@@ -66,14 +73,14 @@ body.pushable>.pusher {
   opacity: 1;
 }
 
-.ui.segment.listitem .version {
+.ui.segments .segment.listitem .version {
   opacity: 0.4;
   font-size: 14px;
   color: #FFFFFF;
   letter-spacing: -0.3px;;
 }
 
-.ui.segment.listitem .title {
+.ui.segments .segment.listitem .title {
   font-size: 16px;
   color: #FFFFFF;
   letter-spacing: -0.34px;

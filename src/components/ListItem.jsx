@@ -17,7 +17,8 @@ const ListItemCore = React.createClass({
     },
     render: function () {
         return (
-                <div className="ui segment listitem active" ref="root">
+            <div className="ui segments" ref="root">
+                <div className="ui segment listitem active">
                     <div className="ui grid middle aligned content">
                         <div className="twelve wide tablet five wide computer column title good">
                             <img className="ui right spaced image inject-me" src="assets/active_service_icon.svg"/>
@@ -35,6 +36,32 @@ const ListItemCore = React.createClass({
                         </div>
                     </div>
                 </div>
+                <div className="ui segment detailitem">
+                    <div className="ui grid">
+                        <div className="two wide column border-right">
+                        </div>
+                        <div className="fourteen wide column">
+                            <div className="ui one column grid">
+                                <div className="column">
+                                    <div className="ui grid middle aligned content">
+                                        <div className="sixteen wide column">
+                                            <i className="circle tiny icon red"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="column">
+                                    <div className="ui grid middle aligned content">
+                                        <div className="sixteen wide column">
+                                            <i className="circle icon red tiny"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         );
     }
 });
