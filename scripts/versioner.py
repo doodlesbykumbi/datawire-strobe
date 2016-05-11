@@ -86,9 +86,10 @@ class VersionedBranch (object):
 
             yield commitID, subject
 
-    def next_version(self, since_tag=None, reduced_zero=True, commit_map=None,
+    def next_version(self, magic_pre=False, since_tag=None, reduced_zero=True, commit_map=None,
                      pre_release=None, build=None):
-        rdelta = ReleaseDelta(self, since_tag=since_tag, reduced_zero=reduced_zero,
+        rdelta = ReleaseDelta(self, magic_pre=magic_pre, 
+                              since_tag=since_tag, reduced_zero=reduced_zero,
                               commit_map=commit_map, pre_release=pre_release, build=build)
 
         return rdelta.next_version
@@ -122,9 +123,11 @@ class ReleaseDelta(object):
     """ how new commits affect project version """
     log = logging.getLogger("ReleaseDelta")
 
-    def __init__(self, vbr, since_tag=None, reduced_zero=True, commit_map=None,
+    def __init__(self, vbr, magic_pre=False, since_tag=None,
+                 reduced_zero=True, commit_map=None,
                  pre_release=None, build=None):
         self.vbr = vbr
+        self.magic_pre = magic_pre
         self.since_tag = since_tag
         self.pre_release = pre_release
         self.build = build
@@ -190,12 +193,28 @@ class ReleaseDelta(object):
         self.log.debug("version start: %s" % version)
 
         finalDelta, commits = self.version_change()
-        self.log.debug("final commit list: %s" % commits)
+        self.log.debug("final commit list: %s" % 
+                       "\n".join(map(lambda x: "%s %s: %s" % (x[0].tag, x[1], x[2]),
+                                     commits)))
         self.log.debug("final change:      %s %s" % (finalDelta, finalDelta.delta))
 
         version = finalDelta.xform(version)
 
-        if self.pre_release:
+        if self.magic_pre:
+            pre = self.vbr.version.prerelease
+
+            if pre:
+                pre = pre[0]
+
+                if pre and pre.startswith('b'):
+                    if finalDelta > self.FIX:
+                        pre = "b1"
+                    else:
+                        pre = "b" + str(int(pre[1:]) + 1)
+
+                self.log.debug("magic prerelease:  %s" % pre)
+                version.prerelease = (pre,)
+        elif self.pre_release:
             version.prerelease = (self.pre_release,)
 
         if self.build:
@@ -260,7 +279,7 @@ if __name__ == '__main__':
     Manipulate version tags
 
     Usage: 
-        versioner.py [-n] [options]
+        versioner.py [-n] [--verbose] [options]
 
     Options:
         --branch=<branchname>      set which branch to work on
@@ -274,13 +293,26 @@ if __name__ == '__main__':
 
     dryrun = args["-n"]
 
-    logging.basicConfig(level=logging.DEBUG)
+    level = logging.INFO
+
+    if args["--verbose"]:
+        level = logging.DEBUG
+
+    logging.basicConfig(level=level)
 
     vr = VersionedRepo(os.getcwd())
-    vbr = vr.get_branch(args.get('branch', None))
+    vbr = vr.get_branch(args.get('--branch', None))
 
-    print(vbr)
+    # print(vbr)
 
-    print(vbr.next_version(pre_release=args.get('pre', None),
-                           build=args.get('build', None),
-                           since_tag=args.get('since', None)))
+    # commit_map = {
+    #     'e787009': '[MAJOR] OH GOD NO',
+    #     'a889b73': '[MINOR] Oh yeah!',
+    #     '2d0b5ec': '[MINOR] WTFO?'
+    # }
+
+    print(vbr.next_version(magic_pre=args.get('--magic-pre', False),
+                           pre_release=args.get('--pre', None),
+                           build=args.get('--build', None),
+                           since_tag=args.get('--since', None)))
+#                           commit_map=commit_map, reduced_zero=False))

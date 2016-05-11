@@ -34,8 +34,6 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | \
 nvm install 4.2.2 &&
 nvm alias default 4.2.2
 
-make
-
 set -x
 
 export GIT_DEPLOY_DIR=dist
@@ -45,10 +43,27 @@ CURRENT_BRANCH=${GIT_BRANCH##*/}
 
 if [ $CURRENT_BRANCH = "master" ]; then
 	export GIT_DEPLOY_REPO=origin
+
+	VERSION=$(python scripts/versioner.py)
 else
 	git remote add strobe-dev git@github.com:datawire/strobe-dev.git
 
 	export GIT_DEPLOY_REPO=strobe-dev
+
+	VERSION=$(python scripts/versioner.py --magic-pre)
 fi
 
+echo "==== Building ${VERSION} on ${CURRENT_BRANCH} at ${GIT_COMMIT}"
+
+sed -i.bak -e "s/0\.0\.0/${VERSION}/" src/Version.jsx
+
+make
+
 bash scripts/deploy.sh -v
+
+git checkout src/Version.jsx
+rm src/Version.jsx.bak
+
+git tag "v${VERSION}" "${GIT_COMMIT}"
+git push --tags origin
+
