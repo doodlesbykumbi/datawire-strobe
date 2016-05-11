@@ -22,6 +22,10 @@
 	margin-bottom: 10px;
 }
 
+.border-right {
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+
 form {
     color: #000;
 }

@@ -50,11 +50,24 @@ const DashboardWrapperCore = React.createClass({
         var mySVGsToInject = this.refs.root.querySelectorAll('img.inject-me');
         // Do the injection
         SVGInjector(mySVGsToInject);
+
+        //$(this.refs.sidebar).sidebar({
+        //    //context: $(this.refs.root)
+        //});
+
+    },
+    componentWillUnmount: function(){
+        this.hideSidebars();
+        $(this.refs.sidebar).remove();
     },
     handleMenuClick: function(index) {
         this.setState({
             currentMenuItem: index,
         });
+        this.hideSidebars();
+    },
+    hideSidebars: function () {
+        $(this.refs.sidebar).sidebar('hide');
     },
     handleSidebarClick: function() {
         $(this.refs.sidebar).sidebar('toggle');
@@ -70,7 +83,9 @@ const DashboardWrapperCore = React.createClass({
         }
 
         this.props.dispatch({ type: 'LOGOUT' });
+        this.props.routes.clear();
         window.location = "#";
+        this.hideSidebars();
     },
     render: function () {
 
@@ -95,6 +110,7 @@ const DashboardWrapperCore = React.createClass({
                             <img className="ui image" src="assets/user_icon.svg"/>
                             <div className="content">
                                 { userEmail }
+                                <br/>| Logout
                             </div>
                         </h4>
                     </div>
@@ -110,6 +126,7 @@ const DashboardWrapperCore = React.createClass({
                                     <img className="ui image" src="assets/user_icon.svg"/>
                                     <div className="content">
                                         { userEmail }
+                                        <br/>| Logout
                                     </div>
                                 </h4>
                             </div>

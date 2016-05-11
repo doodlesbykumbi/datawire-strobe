@@ -28,6 +28,18 @@ const DashboardCore = React.createClass({
             }
         })
     },
+    getInitialState: function () {
+        return {
+            service: ''
+        }
+    },
+    handleSidebarClick: function(service) {
+        this.setState({ service });
+        $(this.refs.sidebar).sidebar('setting', 'transition', 'overlay').sidebar('toggle');
+    },
+    componentWillUnmount: function(){
+        $(this.refs.sidebar).remove();
+    },
     render: function () {
 
         var routes = this.props.routes;
@@ -35,16 +47,51 @@ const DashboardCore = React.createClass({
         var table = <div>Waiting for service info...</div>
 
             var rows = [];
-
+            var i = 0;
             routes.forEach((endpoints, service) => {
-                console.log(endpoints, service);
                 rows.push(
-                    <ListItem title={service}/>
+                    <ListItem index={ i++ } title={service} onClick={ this.handleSidebarClick.bind(this, service) }/>
                 );
             });
 
+        var service = this.state.service;
+        var endpoints = routes.get(service);
+        console.log(service, endpoints)
+        var sideBarRows = endpoints ? endpoints.map(endpoint =>
+            <tr>
+                <td>{ endpoint.host }</td>
+                <td>{ endpoint.port }</td>
+            </tr>) : null;
+
         return (
                     <div className="ui one column row" ref="root">
+                        <div className="ui sidebar very wide right" ref="sidebar">
+                            <div className style={{background: 'white', height: '100%', paddingTop: '4rem', color: 'black'}}>
+                                <div className="ui grid container">
+                                    <div className="ui one column row">
+                                        <div className="column">
+                                            <h2 className="heading">{ this.state.service }</h2>
+                                            <div className="ui clearing divider">
+                                            </div>
+                                        </div>
+                                        <div className="column">
+                                            <table className="ui very basic table">
+                                                <thead>
+                                                <tr className="header">
+                                                    <th>Running Instances</th>
+                                                    <th>Port</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody className="content">
+
+                                                { sideBarRows }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="ui column">
                             <div className="ui two column grid middle aligned">
                                 <div className="column">

@@ -13,7 +13,7 @@
     "test:watch": "npm run test -- --watch",
     "build": "node scripts/bundlify.js",
     "watch": "node scripts/bundlify.js --watch",
-    "serve": "lr-http-server -p 3000 -d dist/ -l 30000 -w **/*.css,*.html "
+    "serve": "lr-http-server -p 3210 -d dist/ -l 30000 -w **/*.css,*.html "
   },
   "babel": {
     "presets": [
