@@ -1,29 +1,43 @@
 #!/bin/bash
 
-set -ex
+set -e
 set -o pipefail
 
-# Create a shiny new virtualenv for ourselves to work in.
-virtualenv .autobuild-venv
+step () {
+	echo "==== $@"
+}
 
-set +x
-. .autobuild-venv/bin/activate
-set -x
+msg () {
+	echo "== $@"
+}
+
+step "Initializing build environment"
 
 # Smite any previous Quark & NVM installations
 rm -rf .autobuild-quark .autobuild-nvm
 
+# Create a shiny new virtualenv for ourselves to work in.
+msg "virtualenv..."
+
+virtualenv .autobuild-venv
+. .autobuild-venv/bin/activate
+
 # Initialize our world
+
+msg "python packages..."
 make install-deps
+
+msg "quark..."
 make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="develop" install-quark
 
 . $(pwd)/.autobuild-quark/config.sh
 
 # ...including node etc.
+
+msg "nvm..."
+
 cp /dev/null .nvm_fake_profile
 NVM_DIR="$(pwd)/.autobuild-nvm"
-
-set +x
 
 # Yes, really, the NVM_DIR setting in the 'env' command below does make sense.
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | \
@@ -34,18 +48,10 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | \
 nvm install 4.2.2 &&
 nvm alias default 4.2.2
 
-set -x
+step "Work out next version"
 
 export GIT_DEPLOY_DIR=dist
 export GIT_DEPLOY_BRANCH=gh-pages
-
-echo "==== env"
-env | sort
-
-echo "==== git"
-git status
-
-echo "==== versioner"
 
 CURRENT_BRANCH=${GIT_BRANCH##*/}
 
@@ -62,26 +68,26 @@ else
 fi
 
 if [ -z "$VERSION" ]; then
-	echo "==== Skipping build"
+	step "Skipping build"
 	exit 1
 fi
 
+step "Building ${VERSION} on ${CURRENT_BRANCH} at ${GIT_COMMIT}"
+
+msg "updating Version.jsx"
+
 sed -i.bak -e "s/0\.0\.0/${VERSION}/" src/Version.jsx
 
-echo "==== Updated Version.jsx:"
-cat src/Version.jsx
-
-echo "==== Building ${VERSION} on ${CURRENT_BRANCH} at ${GIT_COMMIT}"
-
+msg "make"
 make
 
+msg "deploy"
 bash scripts/deploy.sh -v
 
-# echo "Pretending build worked"
+step "Tagging v${VERSION}"
 
 git checkout src/Version.jsx
 rm src/Version.jsx.bak
 
 git tag -a "v${VERSION}" -m "v${VERSION} by Jenkins" "${GIT_COMMIT}"
 git push --tags origin
-
