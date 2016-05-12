@@ -168,7 +168,15 @@ class ReleaseDelta(object):
                     source = "from commit message"
                     break
 
-            self.log.debug("commit %s: %s %s\n-- [%s]" % (commitID, commitDelta.tag, source, subject))
+            if source == "by default":
+                if subject.strip().startswith('feat('):
+                    delta = self.MINOR
+                    source = "from feature marker"
+                elif subject.strip().startswith('break:'):
+                    delta = self.MAJOR
+                    source = "from breakage marker"
+
+            self.log.debug("commit %s: %s %s\n-- [%s]" % (commitID, delta.tag, source, subject))
 
             yield delta, commitID, subject
 
