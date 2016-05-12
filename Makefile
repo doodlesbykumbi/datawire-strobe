@@ -1,4 +1,4 @@
-QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/develop/install.sh
+QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/flynn/feature/quieter-installer/install.sh
 
 all: browser
 

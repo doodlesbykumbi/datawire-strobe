@@ -28,7 +28,7 @@ msg "python packages..."
 make install-deps
 
 msg "quark..."
-make QUARKINSTALLARGS="-t $(pwd)/.autobuild-quark" QUARKBRANCH="develop" install-quark
+make QUARKINSTALLARGS="-qqq -t $(pwd)/.autobuild-quark" QUARKBRANCH="develop" install-quark
 
 . $(pwd)/.autobuild-quark/config.sh
 
