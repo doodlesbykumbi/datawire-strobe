@@ -12,7 +12,8 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.jsx \"test/**/*@(.js|.jsx)\"",
     "test:watch": "npm run test -- --watch",
     "build": "node scripts/bundlify.js",
-    "watch": "node scripts/bundlify.js --watch"
+    "watch": "node scripts/bundlify.js --watch",
+    "serve": "lr-http-server -p 3210 -d dist/ -l 30000 -w **/*.css,*.html "
   },
   "babel": {
     "presets": [
@@ -39,6 +40,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "immutable": "^3.7.6",
     "react": "^15.0.1",
     "react-addons-pure-render-mixin": "^15.0.1",

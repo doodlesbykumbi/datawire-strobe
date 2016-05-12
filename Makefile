@@ -1,4 +1,4 @@
-QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/develop/install.sh
+QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/flynn/feature/quieter-installer/install.sh
 
 all: browser
 
@@ -36,6 +36,9 @@ checkEnv:
 		echo "(if not, check out https://docs.npmjs.com/getting-started/installing-node)" >&2 ;\
 		exit 1 ;\
 	}
+
+install-deps:
+	pip install semantic_version docopt gitpython
 
 install-quark:
 	curl -sL "${QUARKINSTALLER}" | bash -s -- ${QUARKINSTALLARGS} ${QUARKBRANCH}

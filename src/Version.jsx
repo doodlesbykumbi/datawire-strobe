@@ -1,3 +1,3 @@
-const VERSION = "Alpha 0.1.4";
+const VERSION = "0.0.0";
 
 export default VERSION;
