@@ -176,7 +176,7 @@ class ReleaseDelta(object):
                     delta = self.MAJOR
                     source = "from breakage marker"
 
-            self.log.debug("commit %s: %s %s\n-- [%s]" % (commitID, commitDelta.tag, source, subject))
+            self.log.debug("commit %s: %s %s\n-- [%s]" % (commitID, delta.tag, source, subject))
 
             yield delta, commitID, subject
 
