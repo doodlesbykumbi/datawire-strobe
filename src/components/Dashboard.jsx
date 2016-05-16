@@ -6,6 +6,7 @@ import { mapStrobeState } from '../utils';
 import { Error } from './Error';
 import { UserInfo } from './UserInfo';
 import { ListItem } from './ListItem.jsx';
+import { StatPie } from './StatPie.jsx';
 
 const DashboardCore = React.createClass({
     mixins: [PureRenderMixin],
@@ -64,58 +65,65 @@ const DashboardCore = React.createClass({
             </tr>) : null;
 
         return (
-                    <div className="ui one column row" ref="root">
-                        <div className="ui sidebar very wide right" ref="sidebar">
-                            <div className style={{background: 'white', height: '100%', paddingTop: '4rem', color: 'black'}}>
-                                <div className="ui grid container">
-                                    <div className="ui one column row">
-                                        <div className="column">
-                                            <h2 className="heading">{ this.state.service }</h2>
-                                            <div className="ui clearing divider">
-                                            </div>
+            <div ref="root" className="ui grid">
+                <div className="ui three column row">
+                    <StatPie value={ routes.size || 0 } total={ routes.size || 0 } type='running' />
+                    <StatPie value={ routes.size || 0 } total={ routes.size || 0 } type='healthy' />
+                    <StatPie value='0' total='0' type='unhealthy' />
+                </div>
+                <div className="ui one column row" ref="root">
+                    <div className="ui sidebar very wide right" ref="sidebar">
+                        <div className style={{background: 'white', height: '100%', paddingTop: '4rem', color: 'black'}}>
+                            <div className="ui grid container">
+                                <div className="ui one column row">
+                                    <div className="column">
+                                        <h2 className="heading">{ this.state.service }</h2>
+                                        <div className="ui clearing divider">
                                         </div>
-                                        <div className="column">
-                                            <table className="ui very basic table">
-                                                <thead>
-                                                <tr className="header">
-                                                    <th>Running Instances</th>
-                                                    <th>Port</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody className="content">
+                                    </div>
+                                    <div className="column">
+                                        <table className="ui very basic table">
+                                            <thead>
+                                            <tr className="header">
+                                                <th>Running Instances</th>
+                                                <th>Port</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody className="content">
 
-                                                { sideBarRows }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                            { sideBarRows }
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="ui column">
-                            <div className="ui two column grid middle aligned">
-                                <div className="column">
-                                    <h2 className="header">Services
-                                    </h2>
-                                </div>
-                                <div className="right aligned column">
-                                    <div className="inline-button lightable">
-                                        <img className="vertical-center inject-me" src="assets/grid_view.svg" alt/>
-                                    </div>
-                                    <div className="inline-button active lightable">
-                                        <img className="vertical-center inject-me" src="assets/list-view.svg" alt/>
-                                    </div>
-                                    <div className="inline-button lightable">
-                                        <img className="vertical-center inject-me" src="assets/add_icon.svg" alt/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui clearing divider"/>
-                        </div>
-                        <div className="column">
-                            { rows.length ? rows : <div>No services registered</div> }
                         </div>
                     </div>
+                    <div className="ui column">
+                        <div className="ui two column grid middle aligned">
+                            <div className="column">
+                                <h2 className="header">Services
+                                </h2>
+                            </div>
+                            <div className="right aligned column">
+                                <div className="inline-button lightable">
+                                    <img className="vertical-center inject-me" src="assets/grid_view.svg" alt/>
+                                </div>
+                                <div className="inline-button active lightable">
+                                    <img className="vertical-center inject-me" src="assets/list-view.svg" alt/>
+                                </div>
+                                <div className="inline-button lightable">
+                                    <img className="vertical-center inject-me" src="assets/add_icon.svg" alt/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui clearing divider"/>
+                    </div>
+                    <div className="column">
+                        { rows.length ? rows : <div>No services registered</div> }
+                    </div>
+                </div>
+            </div>
         );
     }
 });

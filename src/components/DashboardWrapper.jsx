@@ -51,10 +51,6 @@ const DashboardWrapperCore = React.createClass({
         // Do the injection
         SVGInjector(mySVGsToInject);
 
-        //$(this.refs.sidebar).sidebar({
-        //    //context: $(this.refs.root)
-        //});
-
     },
     componentWillUnmount: function(){
         this.hideSidebars();
