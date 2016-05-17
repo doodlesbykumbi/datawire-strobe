@@ -92,7 +92,11 @@ const SignupCore = React.createClass({
                           <input type="password" ref="signupPassword2" placeholder="Confirm Password" />
                         </div>
                       </div>
-                      <div className="ui fluid large color submit button" onClick={ this.doSignup }>Create account</div>
+                      <div className="ui fluid large color submit button" onClick={ this.doSignup }>
+                        <span><div className="button-loader">
+                          <span></span><span></span><span></span>
+                        </div>Create account</span>
+                      </div>
                     </div>
 
                     <div className="ui error message"></div>

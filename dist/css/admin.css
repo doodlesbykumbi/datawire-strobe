@@ -81,6 +81,10 @@ body.pushable>.pusher {
   background-color: #3E4457;
 }
 
+.authentication .ui.segment {
+  background-color: #fff;
+}
+
 .ui.segments .segment.detailitem {
   background: #363C4D;
 }
