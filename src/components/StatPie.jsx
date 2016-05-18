@@ -58,7 +58,7 @@ const StatPieCore = React.createClass({
                                 { value }{ totalSpan }
                             </div>
                         </div>
-                        <h3 className="stat-label text-center">{ colours[this.props.type].title }</h3>
+                        <h3 className="stat-label text-center">{ colours[this.props.type].name }</h3>
                     </div>
                 </div>
             </div>
