@@ -93,9 +93,11 @@ const SignupCore = React.createClass({
                         </div>
                       </div>
                       <div className="ui fluid large color submit button" onClick={ this.doSignup }>
-                        <span><div className="button-loader">
-                          <span></span><span></span><span></span>
-                        </div>Create account</span>
+                        <div className="button-loader">
+                          <i className="circle tiny icon"></i>
+                          <i className="circle tiny icon"></i>
+                        </div>
+                        <span>Create account</span>
                       </div>
                     </div>
 

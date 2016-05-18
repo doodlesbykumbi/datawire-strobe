@@ -44,6 +44,10 @@ body.pushable>.pusher {
   background-color: #2B2F3E !important;
 }
 
+.ui.fixed.menu+.ui.grid {
+  padding-bottom: 4rem;
+}
+
 .ui.inverted.menu .item:before, .ui.vertical.inverted.menu .item:before {
   content: none;
 }
@@ -81,6 +85,18 @@ body.pushable>.pusher {
   background-color: #3E4457;
 }
 
+.ui[class*="very padded"].segment {
+  padding: 2em;
+}
+
+.ui.grid.authentication {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  min-width: 100%;
+}
 .authentication .ui.segment {
   background-color: #fff;
 }

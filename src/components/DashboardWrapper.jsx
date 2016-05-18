@@ -97,38 +97,46 @@ const DashboardWrapperCore = React.createClass({
             );
         });
 
+        const menuFooter = (
+            <div className="item" style={{position: 'absolute', bottom: 0, width: '100%', 'backgroundColor': '#3E4457'}}>
+                <div className="ui column">
+                    <div className="ui clearing divider" />
+                </div>
+                <span onClick={ this.doLogout }>Sign Out</span>
+            </div>);
+
         return (
             <div ref="root">
                 {/* Responsive sidebar menu */}
                 <div ref="sidebar" className="ui sidebar inverted vertical menu">
-                    <div className="item" onClick={ this.doLogout }>
+                    <div className="item">
                         <h4 className="ui header">
                             <img className="ui image" src="assets/user_icon.svg"/>
                             <div className="content">
                                 { userEmail }
-                                <br/>| Logout
                             </div>
                         </h4>
                     </div>
                     { menus }
+                    { menuFooter }
                 </div>
                 <div className="pusher">
                     <div className="ui grid container">
                         {/* Non-responsive main left menu */}
                         <div className="ui left fixed vertical inverted menu">
                             <div className="item"/>
-                            <div className="item" onClick={ this.doLogout }>
+                            <div className="item">
                                 <h4 className="ui header">
                                     <img className="ui image" src="assets/user_icon.svg"/>
                                     <div className="content">
                                         { userEmail }
-                                        <br/>| Logout
                                     </div>
                                 </h4>
                             </div>
                             <div className="item"/>
                             <div className="item"/>
                             { menus }
+                            { menuFooter }
                         </div>
                         <div className="ui main grid">
                             {/* Responsive top menu */}
