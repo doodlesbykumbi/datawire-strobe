@@ -76,7 +76,7 @@ const LoginCore = React.createClass({
                   <div className="field text-right">
                     <a className="form-secondary" href="">Forgot Password?</a>
                   </div>
-                  <div className="ui fluid large color submit button" onClick={ this.doLogin }>Login</div>
+                  <input className="ui fluid large color submit button" type="submit" value="Login" onClick={ this.doLogin } />
                 </div>
 
                 <div className="ui error message"></div>
