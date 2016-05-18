@@ -208,9 +208,9 @@ body.pushable>.pusher {
 }
 
 .ui.main.grid {
-  left: 18.75%;
+  left: 15rem;
   position: relative;
-  width: 81.25%;
+  width: calc(100% - 13rem);
 }
 
 .ui.main.grid .ui.secondary.pointing.fluid.menu h2 {
