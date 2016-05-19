@@ -4,20 +4,12 @@ UTILSINSTALLER=https://raw.githubusercontent.com/datawire/utilities/master/insta
 all: browser
 
 publish:
-	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
-		echo "You cannot publish with a dirty tree." ;\
-	else \
-		echo "Publishing to gh-pages (dev)..." ;\
-		git subtree push --prefix dist strobe-dev gh-pages ;\
-	fi
+	@echo "use deploy.sh instead -- see jenkins-build.sh for help" >&2
+	@exit 1
 
 publish-production:
-	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
-		echo "You cannot publish with a dirty tree." ;\
-	else \
-		echo "Publishing to gh-pages (production)..." ;\
-		git subtree push --prefix dist origin gh-pages ;\
-	fi
+	@echo "use deploy.sh instead -- see jenkins-build.sh for help" >&2
+	@exit 1
 
 browser: checkEnv npm test dist/browser.js
 
@@ -107,5 +99,4 @@ clean:
 
 clobber: clean
 	-find . -name '*.qc' -print0 | xargs -0 rm
-	-rm -rf node_modules
-
+	-rm -rf node_modules utilities
