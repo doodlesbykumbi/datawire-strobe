@@ -1,4 +1,5 @@
 QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/develop/install.sh
+UTILSINSTALLER=https://raw.githubusercontent.com/datawire/utilities/master/install.sh
 
 all: browser
 
@@ -39,6 +40,10 @@ checkEnv:
 
 install-deps:
 	pip install semantic_version docopt gitpython
+
+# install-utilities isn't needed during ordinary builds; it's needed for CI/CD
+install-utilities:
+	curl -lL "${UTILSINSTALLER}" | bash -s -- ${UTILSINSTALLARGS} ${UTILSBRANCH}
 
 install-quark:
 	curl -sL "${QUARKINSTALLER}" | bash -s -- ${QUARKINSTALLARGS} ${QUARKBRANCH}

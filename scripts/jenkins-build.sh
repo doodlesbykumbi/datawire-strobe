@@ -32,6 +32,9 @@ make QUARKINSTALLARGS="-qqq -t $(pwd)/.autobuild-quark" QUARKBRANCH="develop" in
 
 . $(pwd)/.autobuild-quark/config.sh
 
+msg "utilities..."
+make UTILSINSTALLARGS="-qqq -t $(pwd)/.autobuild-utilities" install-utilities
+
 # ...including node etc.
 
 msg "nvm..."
@@ -58,13 +61,13 @@ CURRENT_BRANCH=${GIT_BRANCH##*/}
 if [ $CURRENT_BRANCH = "master" ]; then
 	export GIT_DEPLOY_REPO=origin
 
-	VERSION=$(python scripts/versioner.py --verbose)
+	VERSION=$(python ./.autobuild-utilities/versioner.py --verbose)
 else
 	git remote add strobe-dev git@github.com:datawire/strobe-dev.git
 
 	export GIT_DEPLOY_REPO=strobe-dev
 
-	VERSION=$(python scripts/versioner.py --verbose --magic-pre)
+	VERSION=$(python ./.autobuild-utilities/versioner.py --verbose --magic-pre)
 fi
 
 if [ -z "$VERSION" ]; then
