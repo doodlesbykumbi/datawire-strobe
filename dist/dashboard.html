@@ -1,18 +1,45 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/sidebar.min.css">
-    <link rel="stylesheet" type="text/css" href="css/icon.min.css">
+    <script src="https://rendro.github.io/easy-pie-chart/javascripts/jquery.easy-pie-chart.js"></script>
+    <link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/jquery.easy-pie-chart.css">
+    <link rel='stylesheet prefetch' type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/sidebar.min.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="css/icon.min.css">-->
     <link rel="stylesheet" type="text/css" href="css/admin.css">
     <!-- Remove if you don't want to use Chart JS -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>-->
-    <script src="js/admin.js"></script>
-    <script src="js/semantic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+    <!--<script src="js/semantic.js"></script>-->
     <script src="js/svg-injector.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <style type="text/css">
+        body {
+            background-color: #2B2F3E;
+        }
+
+        .authentication .column {
+            max-width: 450px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+        a.form-secondary {
+            opacity: 0.5;
+            font-size: 12px;
+            color: #2B2F3E;
+            letter-spacing: 0px;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Dashboard Theme | Dashboard</title>
 </head>
 
@@ -86,6 +113,78 @@
                 <div class="column">
                     <h1>Dashboard</h1>
                     <div class="ui clearing divider"></div>
+                </div>
+            </div>
+
+            <div class="ui three column row">
+                <div class="dashboard-stat column">
+                    <!--<div class="ui segments">-->
+                    <!--<div class="ui segment">-->
+                    <!--<h3 class="ui blue header">Any Header</h3>-->
+                    <!--</div>-->
+                    <div class="ui center aligned segment">
+
+
+                        <div class="row animated fadeInUp">
+                            <div>
+                                <div ref="container" class="easy-pie-chart running" data-percent="25%">2<span>/8</span>
+                                    <!--<canvas height="180" width="180" style="height: 90px; width: 90px;"></canvas>-->
+                                </div>
+                            </div>
+                            <h3 class="stat-label text-center">Running Services</h3></div>
+
+
+                    </div>
+                    <!--<div class="ui segment">-->
+                    <!--<p>Footer</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="dashboard-stat column">
+                    <!--<div class="ui segments">-->
+                    <!--<div class="ui segment">-->
+                    <!--<h3 class="ui blue header">Any Header</h3>-->
+                    <!--</div>-->
+                    <div class="ui center aligned segment">
+
+
+                        <div class="row animated fadeInUp">
+                            <div>
+                                <div ref="container" class="easy-pie-chart healthy" data-percent="50%">1
+                                    <!--<canvas height="180" width="180" style="height: 90px; width: 90px;"></canvas>-->
+                                </div>
+                            </div>
+                            <h3 class="stat-label text-center">Healthy</h3></div>
+
+
+                    </div>
+                    <!--<div class="ui segment">-->
+                    <!--<p>Footer</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="dashboard-stat column">
+                    <!--<div class="ui segments">-->
+                    <!--<div class="ui segment">-->
+                    <!--<h3 class="ui blue header">Any Header</h3>-->
+                    <!--</div>-->
+                    <div class="ui center aligned segment">
+
+
+                        <div class="row animated fadeInUp">
+                            <div>
+                                <div ref="container" class="easy-pie-chart unhealthy" data-percent="50%">1
+                                    <!--<canvas height="180" width="180" style="height: 90px; width: 90px;"></canvas>-->
+                                </div>
+                            </div>
+                            <h3 class="stat-label text-center">Unhealthy</h3></div>
+
+
+                    </div>
+                    <!--<div class="ui segment">-->
+                    <!--<p>Footer</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
 
@@ -168,9 +267,9 @@
                 </div>
             </div>
 
-            </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     // Elements to inject
@@ -178,6 +277,69 @@
 
     // Do the injection
     SVGInjector(mySVGsToInject);
+
+    $('.easy-pie-chart.healthy').easyPieChart({
+        // The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.
+        barColor: '#7ED321',
+        // The color of the track for the bar, false to disable rendering.
+        trackColor: 'rgba(255, 255, 255, 0.1)',
+        // The color of the scale lines, false to disable rendering.
+        scaleColor: false,
+        // Defines how the ending of the bar line looks like. Possible values are: butt, round and square.
+        lineCap: 'round',
+        // Width of the bar line in px.
+        lineWidth: 3,
+        // Size of the pie chart in px. It will always be a square.
+        size: 110,
+        // Time in milliseconds for a eased animation of the bar growing, or false to deactivate.
+        animate: 1000,
+        // Callback function that is called at the start of any animation (only if animate is not false).
+//        onStart: $.noop,
+        // Callback function that is called at the end of any animation (only if animate is not false).
+//        onStop: $.noop
+    });
+
+    $('.easy-pie-chart.unhealthy').easyPieChart({
+        // The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.
+        barColor: '#FF485E',
+        // The color of the track for the bar, false to disable rendering.
+        trackColor: 'rgba(255, 255, 255, 0.1)',
+        // The color of the scale lines, false to disable rendering.
+        scaleColor: false,
+        // Defines how the ending of the bar line looks like. Possible values are: butt, round and square.
+        lineCap: 'round',
+        // Width of the bar line in px.
+        lineWidth: 3,
+        // Size of the pie chart in px. It will always be a square.
+        size: 110,
+        // Time in milliseconds for a eased animation of the bar growing, or false to deactivate.
+        animate: 1000,
+        // Callback function that is called at the start of any animation (only if animate is not false).
+//        onStart: $.noop,
+        // Callback function that is called at the end of any animation (only if animate is not false).
+//        onStop: $.noop
+    });
+
+    $('.easy-pie-chart.running').easyPieChart({
+        // The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.
+        barColor: '#5FCBE6',
+        // The color of the track for the bar, false to disable rendering.
+        trackColor: 'rgba(255, 255, 255, 0.1)',
+        // The color of the scale lines, false to disable rendering.
+        scaleColor: false,
+        // Defines how the ending of the bar line looks like. Possible values are: butt, round and square.
+        lineCap: 'round',
+        // Width of the bar line in px.
+        lineWidth: 3,
+        // Size of the pie chart in px. It will always be a square.
+        size: 110,
+        // Time in milliseconds for a eased animation of the bar growing, or false to deactivate.
+        animate: 1000,
+        // Callback function that is called at the start of any animation (only if animate is not false).
+//        onStart: $.noop,
+        // Callback function that is called at the end of any animation (only if animate is not false).
+//        onStop: $.noop
+    });
 </script>
 
 </body>
