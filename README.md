@@ -4,29 +4,21 @@
 
 ## Overview
 
-This is a proof of concept dashboard for the Datawire Connect discovery system. Watch this space -- it'll move from "proof of concept" to real pretty quickly.
+This is the user dashboard for the Datawire Connect discovery system. Watch this space -- it'll move from "proof of concept" to real pretty quickly.
 
 ## Building
 
-You'll need `quark` and the Datawire Cloud Tools installed:
+Just typing 
 
-        pip install datawire-quark datawire-cloudtools
+		make
 
-and you'll need a Datawire Connect organization with a service called "hello" created:
+should either build everything, or let you know what's missing. For developing, 
 
-        dwc create-org --help
+		make watch
 
-has instructions for creating an organization, and once that's done
+can be particularly useful.
 
-        dwc create-service hello
-
-will create the service you need. (You won't need the service shortly -- in the proof of concept, we use the service token to avoid needing a real login mechanism. That will be changing very very soon.)
-
-Once that's set up, type
-
-        make
-
-and stand back! If all goes well, you can open
+If all goes well, you can open
 
         dist/index.html
 

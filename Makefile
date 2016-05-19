@@ -1,22 +1,15 @@
 QUARKINSTALLER=https://raw.githubusercontent.com/datawire/quark/develop/install.sh
+UTILSINSTALLER=https://raw.githubusercontent.com/datawire/utilities/master/install.sh
 
 all: browser
 
 publish:
-	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
-		echo "You cannot publish with a dirty tree." ;\
-	else \
-		echo "Publishing to gh-pages (dev)..." ;\
-		git subtree push --prefix dist strobe-dev gh-pages ;\
-	fi
+	@echo "use deploy.sh instead -- see jenkins-build.sh for help" >&2
+	@exit 1
 
 publish-production:
-	@if [ $$(git status -s | wc -l) -gt 0 ]; then \
-		echo "You cannot publish with a dirty tree." ;\
-	else \
-		echo "Publishing to gh-pages (production)..." ;\
-		git subtree push --prefix dist origin gh-pages ;\
-	fi
+	@echo "use deploy.sh instead -- see jenkins-build.sh for help" >&2
+	@exit 1
 
 browser: checkEnv npm test dist/browser.js
 
@@ -39,6 +32,10 @@ checkEnv:
 
 install-deps:
 	pip install semantic_version docopt gitpython
+
+# install-utilities isn't needed during ordinary builds; it's needed for CI/CD
+install-utilities:
+	curl -lL "${UTILSINSTALLER}" | bash -s -- ${UTILSINSTALLARGS} ${UTILSBRANCH}
 
 install-quark:
 	curl -sL "${QUARKINSTALLER}" | bash -s -- ${QUARKINSTALLARGS} ${QUARKBRANCH}
@@ -102,5 +99,4 @@ clean:
 
 clobber: clean
 	-find . -name '*.qc' -print0 | xargs -0 rm
-	-rm -rf node_modules
-
+	-rm -rf node_modules utilities
