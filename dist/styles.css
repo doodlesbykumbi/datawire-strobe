@@ -325,3 +325,7 @@ th.reactable-header-sort-desc:after {
     color: #FFFFFF;
     letter-spacing: -0.61px;
 }
+
+.signout-btn:hover {
+    cursor: pointer;
+}
