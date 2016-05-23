@@ -102,7 +102,7 @@ const DashboardWrapperCore = React.createClass({
                 <div className="ui column">
                     <div className="ui clearing divider" />
                 </div>
-                <span onClick={ this.doLogout }>Sign Out</span>
+                <span className="signout-btn" onClick={ this.doLogout }>Sign Out</span>
             </div>);
 
         return (
