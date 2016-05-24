@@ -174,28 +174,9 @@ namespace datawire_connect {
         // Grab the full URL...
         String url = self.makeURL(urlElements);
 
-        // XXX This should work. It doesn't. cf https://github.com/datawire/quark/issues/132
-        // JSONObject jParams = params.toJSON();
-        // String jsonParams = jParams.toString();
-
-        List<String> keys = params.keys();
-        List<String> jParams = [];
-
-        int i = 0;
-        while (i < keys.size()) {
-          String key = keys[i];
-          String value = params[key];
-
-          String nextParam = "\"" + key + "\": \"" + value + "\"";
-
-          logger.info("nextParam " + nextParam);
-
-          jParams.add(nextParam);
-
-          i = i + 1;
-        }
-
-        String jsonParams = "{ " + ",".join(jParams) + " }";
+        // ...and the JSON for the request body...
+        JSONObject jParams = params.toJSON();
+        String jsonParams = jParams.toString();
 
         logger.trace(url + ": jsonParams: " + jsonParams);
 
