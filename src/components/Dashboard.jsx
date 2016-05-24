@@ -42,22 +42,21 @@ const DashboardCore = React.createClass({
         $(this.refs.sidebar).remove();
     },
     render: function () {
-
         var routes = this.props.routes;
 
         var table = <div>Waiting for service info...</div>
 
-            var rows = [];
-            var i = 0;
-            routes.forEach((endpoints, service) => {
-                rows.push(
-                    <ListItem index={ i++ } title={service} onClick={ this.handleSidebarClick.bind(this, service) }/>
-                );
-            });
+        var rows = [];
+        var i = 0;
+        routes.forEach((endpoints, service) => {
+            rows.push(
+                <ListItem index={ i++ } title={service} onClick={ this.handleSidebarClick.bind(this, service) }/>
+            );
+        });
 
         var service = this.state.service;
         var endpoints = routes.get(service);
-        console.log(service, endpoints)
+
         var sideBarRows = endpoints ? endpoints.map(endpoint =>
             <tr>
                 <td>{ endpoint.host }</td>
