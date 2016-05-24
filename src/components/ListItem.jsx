@@ -9,7 +9,6 @@ import { UserInfo } from './UserInfo';
 const ListItemCore = React.createClass({
     mixins: [PureRenderMixin],
     componentDidMount: function () {
-        console.log("meow");
         // Elements to inject
         var mySVGsToInject = this.refs.root.querySelectorAll('img.inject-me');
         // Do the injection

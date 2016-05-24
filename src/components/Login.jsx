@@ -31,8 +31,6 @@ const LoginCore = React.createClass({
       userEmail = this.props.user.get('email');
     }
 
-    console.log("kumbiLog", this.props);
-
     logger.info("Login: userName " + userName);
 
     if (userName && userName.length) {
