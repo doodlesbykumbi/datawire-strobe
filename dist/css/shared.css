@@ -1,0 +1,51 @@
+.s-heading {
+    color: #4A4A4A;
+    letter-spacing: -0.89px;
+}
+
+.h1 {
+    /* This is a Heading 1: */
+    font-size: 32px;
+}
+
+.h2 {
+    /* This is a Heading 2: */
+    font-size: 26px;
+}
+
+.h3 {
+    /* This is a Heading 3: */
+    font-size: 20px;
+}
+
+.h4 {
+    /* This is a Heading 4: */
+    font-size: 18px;
+}
+
+.h5 {
+    /* This is a Heading 5: */
+    font-size: 16px;
+}
+
+.h6 {
+    /* This is a Heading 6: */
+    font-size: 14px;
+}
+
+
+
+.primary {
+/* Oval 3: */
+background: #D5483F;
+}
+
+.secondary {
+    /* Oval 3 Copy: */
+    background: #2B2F3E;
+}
+
+.tertiary {
+    /* Oval 3 Copy 6: */
+    background: #62C2D7;
+}

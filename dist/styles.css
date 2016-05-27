@@ -325,3 +325,354 @@ th.reactable-header-sort-desc:after {
     color: #FFFFFF;
     letter-spacing: -0.61px;
 }
+
+/* tutorial */
+
+.tutorial-header {
+    /* New service: */
+    font-size: 26px;
+    text-align: center;
+    color: #4A4A4A;
+    letter-spacing: -0.93px;
+}
+
+.tutorial {
+    font-size: 14px;
+    font-weight: normal;
+    color: #9B9B9B;
+    letter-spacing: -0.27px;
+    background-color: #fff;
+}
+
+.tutorial .content-container {
+    position: relative;
+    padding: 1.5em;
+}
+
+.tutorial .ui.form .field>label {
+    font-size: 14px;
+    color: #9B9B9B;
+    letter-spacing: -0.27px;
+    font-weight: normal;
+}
+
+.tutorial .content {
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    margin: 0 auto;
+}
+
+.tutorial .code-block .ui.primary.segment {
+    background: rgba(43,46,62,0.05);
+    border: 1px solid #DBDBDB;
+}
+
+.tutorial .code-block pre {
+    font-size: 18px;
+    color: #0097B8;
+    letter-spacing: -0.35px;
+    line-height: 25px;
+}
+
+.tutorial .code-block .ui.secondary.segment {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #DBDBDB;
+}
+/* tutorial progress */
+
+.tutorial-progress-icon .icon-header {
+    font-size: 16px;
+    color: #9B9B9B;
+    letter-spacing: -0.31px;
+}
+
+.tutorial-progress-icon .icon-container .icon-digit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 18px;
+    color: #FFFFFF;
+    letter-spacing: -0.68px;
+    line-height: 18px;
+}
+
+.tutorial-progress-icon .icon-container {
+    height:auto;
+    margin: auto;
+    text-align:center;
+    position:relative;
+    color: #fff;
+}
+
+.tutorial-progress-icon .icon-container img {
+    display: block;
+}
+
+.tutorial-progress-icon .inner {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.3rem;
+}
+
+.tutorial-progress-icon {
+    display: inline-block;
+    height: auto;
+    margin: 0 1rem 0.3rem 0.3rem;
+}
+
+
+.tutorial-progress-bar {
+    background: #E9EAEB;
+    height: 0.3rem;
+    width: 100%;
+    position: relative;
+}
+
+.tutorial-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #DC4E3A;
+    height: 0.3rem;
+    width: 10%;
+}
+
+/* shared styles */
+
+/* Button: */
+.basic.button {
+    /* Rectangle 6 Copy 2: */
+    background: #62C2D7;
+    border-radius: 3px;
+    /* value: */
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: -0.61px;
+}
+
+
+.tutorial .ui.stack.button {
+    /* Rectangle 6 Copy 2: */
+    border-radius: 3px;
+    /* Connect another serv: */
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: -0.61px;
+    margin-bottom: 1em;
+    min-width: 250px;
+}
+
+.stack.button.primary {
+    background: #62C2D7;
+}
+
+.stack.button.secondary {
+    /* Rectangle 6 Copy 2: */
+    background: #9B9B9B;
+}
+
+/* Utility */
+.center {
+    text-align: center;
+}
+
+
+/* Forms */
+
+.form input, .form label {
+    display:block;
+}
+
+.ui.input.dropdown {
+    /*background: rgba(43, 46, 62, 0.05);*/
+    /*border-radius: 3px;*/
+    font-size: 14px;
+    /*color: rgba(0,0,0,0.5);*/
+    letter-spacing: -0.27px;
+}
+
+.tutorial .form .button {
+    min-width: 150px;
+}
+
+.ui.primary.button {
+    /* Rectangle 6 Copy 2: */
+    background: #62C2D7;
+    border-radius: 3px;
+    /* value: */
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: -0.61px;
+}
+
+.ui.primary.button:active, .ui.primary.buttons .button:active {
+    background-color: rgb(87, 165, 185);
+    color: #fff;
+    text-shadow: none;
+}
+.ui.primary.button:focus, .ui.primary.buttons .button:focus {
+    background-color: rgb(87, 165, 185);
+    color: #fff;
+    text-shadow: none;
+}
+.ui.primary.button:hover, .ui.primary.buttons .button:hover {
+    background-color: rgb(87, 165, 185);
+    color: #fff;
+    text-shadow: none;
+}
+
+.ui.clear.button {
+    /* Rectangle 6 Copy 2: */
+    background: rgba(255, 255, 255, 0);
+    border-radius: 3px;
+    /* value: */
+    /* Cancel: */
+    font-size: 16px;
+    color: #9B9B9B;
+    letter-spacing: -0.61px;
+}
+
+.ui.clear.button:active, .ui.clear.buttons .button:active {
+    background: rgba(255, 255, 255, 0);
+    color: #000000;
+    text-shadow: none;
+}
+.ui.clear.button:focus, .ui.clear.buttons .button:focus {
+    background: rgba(255, 255, 255, 0);
+    color: #000000;
+    text-shadow: none;
+}
+.ui.clear.button:hover, .ui.clear.buttons .button:hover {
+    background: rgba(255, 255, 255, 0);
+    color: #000000;
+    text-shadow: none;
+}
+
+.ui.form .field .ui.input input {
+    background: rgb(255, 255, 255);
+    border-radius: 3px;
+    opacity: 1;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: -0.27px;
+}
+
+
+/* Dashboard */
+
+.dashboard .ui.segment {
+    padding: 0.7em;
+    /* Rating System: */
+    font-size: 18px;
+    font-weight: normal;
+    color: #FFFFFF;
+    letter-spacing: -0.38px;
+    background: rgba(255,255,255,0.05);
+}
+.dashboard .ui.primary.segment .ui.grid {
+    /* Rectangle 43 Copy 2: */
+    /* Rectangle 43 Copy 4: */
+    background: rgba(255,255,255,0.05);
+    border-radius: .28571429rem;
+}
+
+.dashboard .ui.segments .ui.primary.segment .ui.grid {
+    border-radius: .28571429rem .28571429rem 0 0;
+}
+
+.dashboard .ui.segment {
+    /* Rectangle 43 Copy 2: */
+    background: #3E4457;
+    border-radius: .28571429rem;
+}
+
+.dashboard .ui.secondary.segment {
+    /* Version 1.1: */
+    font-size: 14px;
+    color: #9B9B9B;
+    letter-spacing: -0.3px;
+    background: #3E4457;
+    padding-left: 2.5em;
+}
+
+.dashboard .ui.secondary.segment .table {
+    border-left: 1px solid #9B9B9B;
+    padding-left: 1em;
+    border-radius: 0;
+    /* Version 1.0: */
+    font-size: 14px;
+    color: #9B9B9B;
+    letter-spacing: -0.3px;
+}
+
+.dashboard .ui.secondary.segment .table tr td {
+    border: none;
+    padding: 0;
+}
+
+.dashboard .ui.secondary.segment .table thead {
+    display: block;
+}
+.dashboard .ui.secondary.segment .status-container {
+    background: #FFFFFF;
+    border-radius: 2px;
+    font-size: 12px;
+    opacity: 0.5;
+    text-align: center;
+    color: #2B2F3E;
+    letter-spacing: -0.25px;
+    display: inline-block;
+    padding: 0 1em;
+    margin: 0;
+    margin-left: 1em;
+}
+
+.dashboard .ui.secondary.segment .table tr:not(:first-child) td {
+    padding-top: 0.5em;
+}
+
+.dashboard .button {
+    /* Rectangle 214: */
+    background: #3E4457;
+    border-radius: 2px;
+    /* Add service: */
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: -0.21px;
+}
+
+/*toast message*/
+.ui.message>.close.icon {
+    margin: auto;
+    top: 0;
+    right: .5em;
+    bottom: 0;
+    color: #FFFFFF;
+}
+
+.ui.message.toast {
+    position: fixed;
+    margin: auto;
+    top: 1em;
+    left: 0;
+    right: 0;
+    max-width: 50%;
+    z-index: 500;
+    text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    background: #62C2D7;
+}
+
+.ui.message.toast p {
+    font-size: 18px;
+    color: #FFFFFF;
+    letter-spacing: -0.44px;
+    margin: 0;
+    margin: 0.5em;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://rendro.github.io/easy-pie-chart/javascripts/jquery.easy-pie-chart.js"></script>
+    <!--<link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/jquery.easy-pie-chart.css">-->
+    <link rel='stylesheet prefetch' type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/sidebar.min.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="css/icon.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <!-- Remove if you don't want to use Chart JS -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+    <!--<script src="js/semantic.js"></script>-->
+    <script src="js/svg-injector.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+
+    <style type="text/css">
+        body {
+            background-color: #2B2F3E;
+        }
+
+        .authentication .column {
+            max-width: 450px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        a.form-secondary {
+            opacity: 0.5;
+            font-size: 12px;
+            color: #2B2F3E;
+            letter-spacing: 0px;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Dashboard Theme | Dashboard</title>
+</head>
+
+<body>
+<div id="app">
+
+    <div class="ui small modal">
+        <i class="close icon"></i>
+        <div class="content tutorial">
+            <div class="ui one column row">
+                <div class="column">
+                    <h1 class="tutorial-header"> New Service</h1>
+                    <div class="ui clearing divider"></div>
+                </div>
+                <div class="column">
+                    <div class="tutorial-progress-icon">
+                        <div class="icon-container inner">
+                            <img src="http://127.0.0.1:3210/assets/tutorial_progress_active.svg" alt="">
+                            <span class="icon-digit">1</span>
+                        </div><div class="inner icon-header">Connect</div>
+                    </div>
+                    <div class="tutorial-progress-icon">
+                        <div class="icon-container inner">
+                            <img src="http://127.0.0.1:3210/assets/tutorial_progress_inactive.svg" alt="">
+                            <span class="icon-digit">2</span>
+                        </div><div class="inner icon-header">Configure</div>
+                    </div>
+                    <div class="tutorial-progress-icon">
+                        <div class="icon-container inner">
+                            <img src="http://127.0.0.1:3210/assets/tutorial_progress_inactive.svg" alt="">
+                            <span class="icon-digit">3</span>
+                        </div><div class="inner icon-header">Launch</div>
+                    </div>
+
+                    <div class="tutorial-progress-bar">
+                        <div class="tutorial-progress"></div>
+                    </div>
+                </div>
+                <div class="column content-container">
+                    <div class="ui basic padded very segment">
+                        <form class="ui large form">
+                            <div>
+                                <div class="field">
+                                    <label> Service </label>
+                                    <div class="ui input">
+                                        <input id="email" placeholder="e.g., tarzan@jungle.org" type="text">
+                                    </div>
+                                </div>
+                                <div class="two equal width fields">
+                                    <div class="field">
+                                        <label>Owner</label>
+                                        <div class="ui input">
+                                            <input type="text" placeholder="Owner">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>Version</label>
+                                        <div class="ui input">
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label> Email </label>
+                                    <select class="ui dropdown input">
+                                        <option value="">Gender</option>
+                                        <option value="1">Male</option>
+                                        <option value="0">Female</option>
+                                    </select>
+                                </div>
+                                <div class="ui large button primary">Continue</div>
+                                <div class="ui large button clear">Cancel</div>
+
+
+                                <p>The Discovery API lets you register a service. You can try this out yourself. In your interpreter, type:</p>
+
+                                <div class="ui segments code-block">
+                                    <div class="ui primary segment">
+                                    <pre>import datawire
+datawire.register(‘servicename’,’owner’,TOKEN_ID, physical_address)</pre>
+                                    </div>
+                                    <div class="ui secondary segment">
+                                        <p><i class="wait icon"></i>Pending registration. Excecute code to register the service.</p>
+                                    </div>
+                                </div>
+
+                                <div class="ui segments code-block">
+                                    <div class="ui primary segment">
+                                    <pre>import datawire
+datawire.register(‘servicename’,’owner’,TOKEN_ID, physical_address)</pre>
+                                    </div>
+                                    <div class="ui secondary segment">
+                                        <p><i class="green check circle icon"></i>Servicename has been registered by owner.</p>
+                                    </div>
+                                </div>
+
+                                <div class="ui large button primary">Continue</div>
+                                <div class="ui large button clear">Skip Tutorial</div>
+
+                                <div class="center">
+                                    <h2>That's it</h2>
+                                    <p>
+                                        You’ve registered your first service, started a running service, and seen how you connect to your running service via service discovery. What’s next?
+                                    </p>
+                                     <div><div class="ui stack button primary">Connect another service</div></div>
+                                    <div><div class="ui stack button secondary">API Documentation</div></div>
+                                    <div><div class="ui stack button secondary">Go To Dashboard</div></div>
+                                </div>
+
+                            </div>
+
+                            <div class="ui error message"></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    $('.dropdown') .dropdown();
+    $('.ui.modal').modal('show');
+</script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://rendro.github.io/easy-pie-chart/javascripts/jquery.easy-pie-chart.js"></script>
+    <!--<link rel="stylesheet" href="https://rendro.github.io/easy-pie-chart/stylesheets/jquery.easy-pie-chart.css">-->
+    <link rel='stylesheet prefetch' type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/sidebar.min.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="css/icon.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <!-- Remove if you don't want to use Chart JS -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+    <!--<script src="js/semantic.js"></script>-->
+    <script src="js/svg-injector.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+
+    <style type="text/css">
+        body {
+            background-color: #2B2F3E;
+        }
+
+        .authentication .column {
+            max-width: 450px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        a.form-secondary {
+            opacity: 0.5;
+            font-size: 12px;
+            color: #2B2F3E;
+            letter-spacing: 0px;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Dashboard Theme | Dashboard</title>
+</head>
+
+<body>
+<div id="app">
+    <div class="ui message transition toast">
+        <p>Service added succesfully</p>
+        <i class="close icon"></i>
+    </div>
+    <div ref="root">
+        <!--{/* Responsive sidebar menu */}-->
+        <div ref="sidebar" class="ui sidebar inverted vertical menu">
+            <div class="item">
+                <h4 class="ui header">
+                    <img class="ui image" src="assets/user_icon.svg"/>
+                    <div class="content">
+                        { userEmail }
+                    </div>
+                </h4>
+            </div>
+            <!--{ menus }-->
+            <a class="item">
+                <img class="ui right spaced image" src='./assets/tutorial_menu.svg'/>
+                <span>Tutorial</span>
+            </a>
+            <!--{ menuFooter }-->
+            <div class="item" style="position: absolute; bottom: 0; width: 100%; backgroundColor: #3E4457">
+                <div class="ui column">
+                    <div class="ui clearing divider"></div>
+                </div>
+                <span>Sign Out</span>
+            </div>
+        </div>
+
+
+        <div class="pusher">
+            <div class="ui grid container">
+                <!--{/* Non-responsive main left menu */}-->
+                <div class="ui left fixed vertical inverted menu">
+                    <div class="item"></div>
+                    <div class="item">
+                        <h4 class="ui header">
+                            <img class="ui image" src="assets/user_icon.svg"/>
+                            <div class="content">
+                                { userEmail }
+                            </div>
+                        </h4>
+                    </div>
+                    <!--{ menus }-->
+                    <a class="item">
+                        <img class="ui right spaced image" src='./assets/tutorial_menu.svg'/>
+                        <span>Tutorial</span>
+                    </a>
+                    <!--{ menuFooter }-->
+                    <div class="item" style="position: absolute; bottom: 0; width: 100%; backgroundColor: #3E4457">
+                        <div class="ui column">
+                            <div class="ui clearing divider"></div>
+                        </div>
+                        <span>Sign Out</span>
+                    </div>
+                </div>
+                <div class="ui main grid">
+                    <!--{/* Responsive top menu */}-->
+                    <div class="ui fixed inverted main menu">
+                        <div class="ui container">
+                            <a class="launch item sidebar-toggle">
+                                <img class="ui image" src="assets/list-view.svg" alt/>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="ui one column row header">
+                        <div class="column">
+                            <h1> { title }</h1>
+                            <div class="ui clearing divider"></div>
+                        </div>
+                    </div>
+
+                    <!--{ pageContent }-->
+                    <div class="ui one column row">
+                        <div ref="root" class="column">
+                            <div class="ui three column grid">
+                                <!--{ StatPie }-->
+                                <div class="dashboard-stat column">
+                                    <div class="ui center aligned segment">
+                                        <div class="row animated fadeInUp">
+                                            <div>
+                                                <div class="easy-pie-chart running" ref="chart" data-percent=20>
+                                                    { value }
+                                                </div>
+                                            </div>
+                                            <h3 class="stat-label text-center">{ name }</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--{ StatPie }-->
+                                <div class="dashboard-stat column">
+                                    <div class="ui center aligned segment">
+                                        <div class="row animated fadeInUp">
+                                            <div>
+                                                <div class="easy-pie-chart running" ref="chart" data-percent=20>
+                                                    { value }
+                                                </div>
+                                            </div>
+                                            <h3 class="stat-label text-center">{ name }</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--{ StatPie }-->
+                                <div class="dashboard-stat column">
+                                    <div class="ui center aligned segment">
+                                        <div class="row animated fadeInUp">
+                                            <div>
+                                                <div class="easy-pie-chart running" ref="chart" data-percent=20>
+                                                    { value }
+                                                </div>
+                                            </div>
+                                            <h3 class="stat-label text-center">{ name }</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui one column row dashboard" ref="dashboard">
+                                <div class="ui column">
+                                    <div class="ui two column grid middle aligned">
+                                        <div class="column">
+                                            <h2 class="header">Services
+                                            </h2>
+                                        </div>
+                                        <div class="right aligned column">
+                                            <div class="inline-button lightable">
+                                                <img class="vertical-center inject-me" src="assets/add_icon.svg" alt/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui clearing divider"></div>
+                                </div>
+                                <div class="column">
+                                    <div class="ui segment primary running">
+                                        <div class="ui grid middle aligned">
+                                            <div class="ui twelve wide tablet nine wide computer column title good">
+                                                <img class="ui right spaced image inject-me" src="assets/active_service_icon.svg"/>
+                                                <span>{ this.props.title }</span>
+                                            </div>
+                                            <div class="three wide computer only column">
+                                            </div>
+                                            <div class="four wide tablet four wide computer right aligned column">
+                                                <div  class="inline-button lightable" >
+                                                    <i class="large angle down icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui segments">
+                                        <div class="ui segment primary running">
+                                            <div class="ui grid middle aligned">
+                                                <div class="ui twelve wide tablet nine wide computer column title good">
+                                                    <img class="ui right spaced image inject-me" src="assets/active_service_icon.svg"/>
+                                                    <span>{ this.props.title }</span>
+                                                </div>
+                                                <div class="three wide computer only column">
+                                                </div>
+                                                <div class="four wide tablet four wide computer right aligned column">
+                                                    <div  class="inline-button lightable" >
+                                                        <i class="large angle up icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui segment secondary padded">
+                                            <table class="ui very basic table unstackable">
+                                                <!--<thead>-->
+                                                <!--<tr><th class="three wide"></th>-->
+                                                    <!--<th class="seven wide"></th>-->
+                                                    <!--<th class="six wide"></th>-->
+                                                <!--</tr>-->
+                                                <!--</thead>-->
+                                                <tbody>
+                                                <tr>
+                                                    <td class="three wide">Version 1.1</td>
+                                                    <td class="one wide"><i class="circle red tiny icon"></i></td>
+                                                    <td class="four wide"><div class="status-container">DEV</div></td>
+                                                    <td class="seven wide">Q 0.15.2<div class="status-container"><i class="repeat icon"></i>Update</div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="three wide">Version 1.0</td>
+                                                    <td class="one wide"><i class="circle green tiny icon"></i></td>
+                                                    <td class="four wide"><div class="status-container">PROD</div></td>
+                                                    <td class="seven wide">Q 0.15.2</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="ui button">
+                                        <i class="plus icon"></i> Add Service
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Elements to inject
+        var mySVGsToInject = document.querySelectorAll('img.inject-me');
+
+        // Do the injection
+        SVGInjector(mySVGsToInject);
+
+        $('.easy-pie-chart.healthy').easyPieChart({
+            // The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.
+            barColor: '#7ED321',
+            // The color of the track for the bar, false to disable rendering.
+            trackColor: 'rgba(255, 255, 255, 0.1)',
+            // The color of the scale lines, false to disable rendering.
+            scaleColor: false,
+            // Defines how the ending of the bar line looks like. Possible values are: butt, round and square.
+            lineCap: 'round',
+            // Width of the bar line in px.
+            lineWidth: 3,
+            // Size of the pie chart in px. It will always be a square.
+            size: 110,
+            // Time in milliseconds for a eased animation of the bar growing, or false to deactivate.
+            animate: 1000,
+            // Callback function that is called at the start of any animation (only if animate is not false).
+//        onStart: $.noop,
+            // Callback function that is called at the end of any animation (only if animate is not false).
+//        onStop: $.noop
+        });
+
+        $('.easy-pie-chart.unhealthy').easyPieChart({
+            // The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.
+            barColor: '#FF485E',
+            // The color of the track for the bar, false to disable rendering.
+            trackColor: 'rgba(255, 255, 255, 0.1)',
+            // The color of the scale lines, false to disable rendering.
+            scaleColor: false,
+            // Defines how the ending of the bar line looks like. Possible values are: butt, round and square.
+            lineCap: 'round',
+            // Width of the bar line in px.
+            lineWidth: 3,
+            // Size of the pie chart in px. It will always be a square.
+            size: 110,
+            // Time in milliseconds for a eased animation of the bar growing, or false to deactivate.
+            animate: 1000,
+            // Callback function that is called at the start of any animation (only if animate is not false).
+//        onStart: $.noop,
+            // Callback function that is called at the end of any animation (only if animate is not false).
+//        onStop: $.noop
+        });
+
+        $('.easy-pie-chart.running').easyPieChart({
+            // The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.
+            barColor: '#5FCBE6',
+            // The color of the track for the bar, false to disable rendering.
+            trackColor: 'rgba(255, 255, 255, 0.1)',
+            // The color of the scale lines, false to disable rendering.
+            scaleColor: false,
+            // Defines how the ending of the bar line looks like. Possible values are: butt, round and square.
+            lineCap: 'round',
+            // Width of the bar line in px.
+            lineWidth: 3,
+            // Size of the pie chart in px. It will always be a square.
+            size: 110,
+            // Time in milliseconds for a eased animation of the bar growing, or false to deactivate.
+            animate: 1000,
+            // Callback function that is called at the start of any animation (only if animate is not false).
+//        onStart: $.noop,
+            // Callback function that is called at the end of any animation (only if animate is not false).
+//        onStop: $.noop
+        });
+
+        setInterval(function () {
+            $('.message')
+                    .transition('fade')
+            ;
+        }, 2000)
+    </script>
+
+</body>
+</html>
