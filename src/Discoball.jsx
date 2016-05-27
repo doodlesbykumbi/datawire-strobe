@@ -108,8 +108,7 @@ export default class Discoball {
   }
 
   loginSucceeded(email, orgID, token) {
-    console.log("loginSucceeded: this " + this);
-    console.log("LOGGED IN! orgID " + this.orgID + " -- localStorage " + typeof(localStorage));
+    console.log("loginSucceeded: orgID " + orgID);
 
     this.processLogin(email, orgID, token);
   }
@@ -122,8 +121,7 @@ export default class Discoball {
   }
 
   signupSucceeded(orgName, adminEmail, orgID, token) {
-    console.log("signupSucceeded: this " + this);
-    console.log("LOGGED IN! orgID " + this.orgID + " -- localStorage " + typeof(localStorage));
+    console.log("signupSucceeded: orgID " + orgID);
 
     this.processLogin(adminEmail, orgID, token);
   }

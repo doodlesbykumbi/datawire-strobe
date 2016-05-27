@@ -31,8 +31,6 @@ const LoginCore = React.createClass({
       userEmail = this.props.user.get('email');
     }
 
-    console.log("kumbiLog", this.props);
-
     logger.info("Login: userName " + userName);
 
     if (userName && userName.length) {
@@ -76,7 +74,7 @@ const LoginCore = React.createClass({
                     <div className="field text-right">
                       <a className="form-secondary" href="">Forgot Password?</a>
                     </div>
-                    <div className="ui fluid large color submit button" onClick={ this.doLogin }>Login</div>
+                    <input className="ui fluid large color submit button" value="Login" type="Submit" onClick={ this.doLogin } />
                   </div>
 
                   <div className="ui error message"></div>
